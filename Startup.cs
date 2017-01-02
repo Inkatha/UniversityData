@@ -37,6 +37,14 @@ namespace UniversityData
             services.AddScoped<IBasicInfoRepository, BasicInfoRepository>();
             services.AddScoped<ICompletionRatesRepository, CompletionRatesRepository>();
             services.AddScoped<ICostToAttendRepository, CostToAttendRepository>();
+            services.AddScoped<IDegreesAwardedRepository, DegreesAwardedRepository>();
+            services.AddScoped<IDiversityStatisticsRepository, DiversityStatisticsRepository>();
+            services.AddScoped<IEarningsAfterGraduationRepository, EarningsAfterGraduationRepository>();
+            services.AddScoped<IFinancialAidProvidedRepository, FinancialAidProvidedRepository>();
+            services.AddScoped<IInstitutionTypeRepository, InstitutionTypeRepository>();
+            services.AddScoped<IRetentionRatesRepository, RetentionRatesRepository>();
+            services.AddScoped<IStandardizedTestAveragesRepository, StandardizedTestAveragesRepository>();
+            services.AddScoped<IStudentLoanDebtsRepository, StudentLoanDebtsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

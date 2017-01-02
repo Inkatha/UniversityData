@@ -6,7 +6,7 @@ namespace UniversityData.Models
     {
         [Key]
         public int schoolid { get; set; }
-        public int md_earn_wane_p10 { get; set; }
+        public int md_earn_wne_p10 { get; set; }
         public double gt_25k_p6 { get; set; }
     }
 }

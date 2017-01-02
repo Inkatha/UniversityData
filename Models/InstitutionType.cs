@@ -7,7 +7,7 @@ namespace UniversityData.Models
         [Key]       
         public int schoolid { get; set; }
         public bool hcm2 { get; set; }
-        public bool locale { get; set; }
+        public int locale { get; set; }
         public bool hbcu { get; set; }
         public bool pbi { get; set; }
         public bool annhi { get; set; }
@@ -16,7 +16,7 @@ namespace UniversityData.Models
         public bool nanti { get; set; }
         public bool menonly { get; set; }
         public bool womenonly { get; set; }
-        public bool relaffil { get; set; }
+        public int relaffil { get; set; }
         public bool distanceonly { get; set; }
         public bool curroper { get; set; }
     }

@@ -7,13 +7,9 @@ namespace UniversityData.Models
         [Key]
         public double schoolid { get; set; }
         public double pcip01 { get; set; }
-        public double pcip02 { get; set; }
         public double pcip03 { get; set; }
         public double pcip04 { get; set; }
         public double pcip05 { get; set; }
-        public double pcip06 { get; set; }
-        public double pcip07 { get; set; }
-        public double pcip08 { get; set; }
         public double pcip09 { get; set; }
         public double pcip10 { get; set; }
         public double pcip11 { get; set; }
@@ -22,27 +18,16 @@ namespace UniversityData.Models
         public double pcip14 { get; set; }
         public double pcip15 { get; set; }
         public double pcip16 { get; set; }
-        public double pcip17 { get; set; }
-        public double pcip18 { get; set; }
         public double pcip19 { get; set; }
-        public double pcip20 { get; set; }
-        public double pcip21 { get; set; }
         public double pcip22 { get; set; }
         public double pcip23 { get; set; }
         public double pcip24 { get; set; }
         public double pcip25 { get; set; }
         public double pcip26 { get; set; }
         public double pcip27 { get; set; }
-        public double pcip28 { get; set; }
         public double pcip29 { get; set; }
         public double pcip30 { get; set; }
         public double pcip31 { get; set; }
-        public double pcip32 { get; set; }
-        public double pcip33 { get; set; }
-        public double pcip34 { get; set; }
-        public double pcip35 { get; set; }
-        public double pcip36 { get; set; }
-        public double pcip37 { get; set; }
         public double pcip38 { get; set; }
         public double pcip39 { get; set; }
         public double pcip40 { get; set; }
@@ -58,7 +43,6 @@ namespace UniversityData.Models
         public double pcip50 { get; set; }
         public double pcip51 { get; set; }
         public double pcip52 { get; set; }
-        public double pcip53 { get; set; }
         public double pcip54 { get; set; }
     }
 }
