@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using UniversityData.Service;
+using UniversityData.Services;
 using UniversityData.Services.Interfaces;
 
 namespace UniversityData
@@ -35,6 +35,8 @@ namespace UniversityData
             );
 
             services.AddScoped<IBasicInfoRepository, BasicInfoRepository>();
+            services.AddScoped<ICompletionRatesRepository, CompletionRatesRepository>();
+            services.AddScoped<ICostToAttendRepository, CostToAttendRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

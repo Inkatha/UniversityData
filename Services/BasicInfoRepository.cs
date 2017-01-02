@@ -3,7 +3,7 @@ using System.Linq;
 using UniversityData.Models;
 using UniversityData.Services.Interfaces;
 
-namespace UniversityData.Service
+namespace UniversityData.Services
 {
     public class BasicInfoRepository : IBasicInfoRepository
     {

@@ -1,24 +1,22 @@
-using System;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using UniversityData.Service;
+using UniversityData.Services.Interfaces;
 
-namespace UniversityData.Controllers 
+namespace UniversityData.Controllers
 {
     [Route("api/[controller]")]
     public class CompletionRatesController : Controller
     {
-        private readonly UniversityContext _context;
-        public CompletionRatesController(UniversityContext context)
+        private readonly ICompletionRatesRepository _repository;
+        public CompletionRatesController(ICompletionRatesRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         // GET: api/completionrates
         [HttpGet]
         public IActionResult GetAllCompletionRates()
         {
-            var completionRatesResults = _context.completionrates.ToList();
+            var completionRatesResults = _repository.GetAllCompletionRates();
             return Ok(completionRatesResults);            
         }
 
@@ -26,7 +24,7 @@ namespace UniversityData.Controllers
         [HttpGet("{schoolId}")]
         public IActionResult GetSchoolCompletionRates(int schoolId)
         {
-            var completionRateResult = _context.completionrates.FirstOrDefault(c => c.schoolid == schoolId);
+            var completionRateResult = _repository.GetSchoolCompletionRates(schoolId);
             return Ok(completionRateResult);
         }
     }

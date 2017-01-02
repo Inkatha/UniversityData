@@ -38,7 +38,6 @@ namespace UniversityData.Controllers
                 {
                     return NotFound();
                 }
-
                 return Ok(basicInfoResults);
             }
             catch (Exception ex)
