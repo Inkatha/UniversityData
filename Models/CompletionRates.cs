@@ -5,8 +5,8 @@ namespace UniversityData.Models
     public class CompletionRates
     {
         [Key]
-        public int SchoolID { get; set; }
-        public double C150_4_POOLED_SUPP { get; set; }
-        public double C200_L4_POOLED_SUPP { get; set; }
+        public int schoolid { get; set; }
+        public double c150_4_pooled_supp { get; set; }
+        public double c200_l4_pooled_supp { get; set; }
     }
 }

@@ -5,8 +5,8 @@ namespace UniversityData.Models
     public class EarningsAfterGraduation
     {
         [Key]
-        public int SchoolID { get; set; }
-        public int MD_EARN_WANE_P10 { get; set; }
-        public double GT_25K_P6 { get; set; }
+        public int schoolid { get; set; }
+        public int md_earn_wane_p10 { get; set; }
+        public double gt_25k_p6 { get; set; }
     }
 }

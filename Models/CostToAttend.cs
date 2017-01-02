@@ -5,19 +5,19 @@ namespace UniversityData.Models
     public class CostToAttend
     {
         [Key]
-        public int SchoolID { get; set; }
-        public double PPTUG_EF { get; set; }
-        public int NPT4_PUB { get; set; }
-        public int NPT4_PRIV { get; set; }        
-        public int NPT41_PUB { get; set; }        
-        public int NPT42_PUB { get; set; }        
-        public int NPT43_PUB { get; set; }        
-        public int NPT44_PUB { get; set; }        
-        public int NPT45_PUB { get; set; }        
-        public int NPT41_PRIV { get; set; }        
-        public int NPT42_PRIV { get; set; }        
-        public int NPT43_PRIV { get; set; }        
-        public int NPT44_PRIV { get; set; }        
-        public int NPT45_PRIV { get; set; }        
+        public int schoolid { get; set; }
+        public double pptug_ef { get; set; }
+        public int npt4_pub { get; set; }
+        public int npt4_priv { get; set; }        
+        public int npt41_pub { get; set; }        
+        public int npt42_pub { get; set; }        
+        public int npt43_pub { get; set; }        
+        public int npt44_pub { get; set; }        
+        public int npt45_pub { get; set; }        
+        public int npt41_priv { get; set; }        
+        public int npt42_priv { get; set; }        
+        public int npt43_priv { get; set; }        
+        public int npt44_priv { get; set; }        
+        public int npt45_priv { get; set; }        
     }
 }

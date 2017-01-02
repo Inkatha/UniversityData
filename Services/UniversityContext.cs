@@ -9,16 +9,16 @@ namespace UniversityData.Service
         {
         
         }
-        public DbSet<BasicInfo> BasicInfo { get; set;}
-        public DbSet<CompletionRates> CompletionRates { get; set;}
-        public DbSet<CostToAttend> CostToAttend { get; set;}
-        public DbSet<DegreesAwarded> DegreesAwarded { get; set;}
-        public DbSet<DiversityStatistics> DiversityStatistics { get; set;}
-        public DbSet<EarningsAfterGraduation> EarningsAfterGraduation { get; set;}
-        public DbSet<FinancialAidProvided> FinancialAidProvided { get; set;}
-        public DbSet<InstitutionType> InstitutionType { get; set;}
-        public DbSet<RetentionRates> RetentionRates { get; set;}
-        public DbSet<StandardizedTestAverages> StandardizedTestAverages { get; set;}
-        public DbSet<StudentLoanDebts> StudentLoanDebts { get; set;}
+        public DbSet<BasicInfo> basicinfo { get; set;}
+        public DbSet<CompletionRates> completionrates { get; set;}
+        public DbSet<CostToAttend> costtoattend { get; set;}
+        public DbSet<DegreesAwarded> degreesawarded { get; set;}
+        public DbSet<DiversityStatistics> diversitystatistics { get; set;}
+        public DbSet<EarningsAfterGraduation> earningsaftergraduation { get; set;}
+        public DbSet<FinancialAidProvided> financialaidprovided { get; set;}
+        public DbSet<InstitutionType> institutiontype { get; set;}
+        public DbSet<RetentionRates> retentionrates { get; set;}
+        public DbSet<StandardizedTestAverages> standardizedtestaverages { get; set;}
+        public DbSet<StudentLoanDebts> studentloandebts { get; set;}
     }
 }

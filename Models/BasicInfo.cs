@@ -1,17 +1,17 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace UniversityData.Model
+namespace UniversityData.Models
 {
     public class BasicInfo
     {
         [Key]
-        public int UnitId { get; set; }
-        public int OpeId { get; set; }
-        public int OpeId6 { get; set; }
-        public string InstitutionName { get; set; }
-        public string City { get; set; }
-        public string Stabbr { get; set; }
-        public string InstitutionUrl { get; set; }
-        public string NpCurl { get; set; }
+        public int unitid { get; set; }
+        public int opeid { get; set; }
+        public int opeid6 { get; set; }
+        public string instnm { get; set; }
+        public string city { get; set; }
+        public string stabbr { get; set; }
+        public string insturl { get; set; }
+        public string npcurl { get; set; }
     }
 }

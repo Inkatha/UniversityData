@@ -4,10 +4,10 @@ namespace UniversityData.Models
 {
     public class StudentLoanDebts
     {
-        [Key]
-        public int SchoolID { get; set; }
-        public double GRAD_DEBT_MDN_SUPP { get; set; }
-        public double GRAD_DEBT_MDN10YR_SUPP { get; set; }
-        public double RPY_3YR_RT_SUPP { get; set; }
+        [Key]        
+        public int schoolid { get; set; }
+        public double grad_debt_mdn_supp { get; set; }
+        public double grad_debt_mdn10yr_supp { get; set; }
+        public double rpy_3yr_rt_supp { get; set; }
     }
 }

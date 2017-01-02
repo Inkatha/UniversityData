@@ -5,15 +5,15 @@ namespace UniversityData.Models
     public class DiversityStatistics
     {
         [Key]
-        public int SchoolID { get; set; }
-        public int UGDS { get; set; }
-        public double UGDS_WHITE { get; set; }
-        public double UGDS_BLACK { get; set; }
-        public double UGDS_HISP { get; set; }
-        public double UGDS_ASIAN { get; set; }
-        public double UGDS_NHPI { get; set; }
-        public double UGDS_2MOR { get; set; }
-        public double UGDS_NRA { get; set; }
-        public double UG25ABV { get; set; }
+        public int schoolid { get; set; }
+        public int ugds { get; set; }
+        public double ugds_white { get; set; }
+        public double ugds_black { get; set; }
+        public double ugds_hisp { get; set; }
+        public double ugds_asian { get; set; }
+        public double ugds_nhpi { get; set; }
+        public double ugds_2mor { get; set; }
+        public double ugds_nra { get; set; }
+        public double ug25abv { get; set; }
     }
 }

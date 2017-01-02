@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+using UniversityData.Service;
 
 namespace UniversityData
 {
@@ -29,6 +32,11 @@ namespace UniversityData
         {
             // Add framework services.
             services.AddMvc();
+
+            var connectionString = Configuration["DbContextSettings:ConnectionString"];
+            services.AddDbContext<UniversityContext>(
+                opts => opts.UseNpgsql(connectionString)
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

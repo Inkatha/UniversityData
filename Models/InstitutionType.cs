@@ -4,20 +4,20 @@ namespace UniversityData.Models
 {
     public class InstitutionType
     {
-        [Key]
-        public int SchoolID { get; set; }
-        public bool HCM2 { get; set; }
-        public bool LOCALE { get; set; }
-        public bool HBCU { get; set; }
-        public bool PBI { get; set; }
-        public bool ANNHI { get; set; }
-        public bool TRIBAL { get; set; }
-        public bool HSI { get; set; }
-        public bool NANTI { get; set; }
-        public bool MENONLY { get; set; }
-        public bool WOMENONLY { get; set; }
-        public bool RELAFFIL { get; set; }
-        public bool DISTANCEONLY { get; set; }
-        public bool CURROPER { get; set; }
+        [Key]       
+        public int schoolid { get; set; }
+        public bool hcm2 { get; set; }
+        public bool locale { get; set; }
+        public bool hbcu { get; set; }
+        public bool pbi { get; set; }
+        public bool annhi { get; set; }
+        public bool tribal { get; set; }
+        public bool hsi { get; set; }
+        public bool nanti { get; set; }
+        public bool menonly { get; set; }
+        public bool womenonly { get; set; }
+        public bool relaffil { get; set; }
+        public bool distanceonly { get; set; }
+        public bool curroper { get; set; }
     }
 }
