@@ -16,7 +16,7 @@ namespace UniversityData.Service
 
         public IEnumerable<BasicInfo> GetAllBasicInformation()
         {
-            return _context.basicinfo.ToList();
+            return _context.basicinfo.OrderBy(c => c.unitid).ToList();
         }
 
         public BasicInfo GetSchoolBasicInformation(int unitid)

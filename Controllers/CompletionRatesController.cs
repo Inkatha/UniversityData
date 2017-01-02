@@ -23,11 +23,10 @@ namespace UniversityData.Controllers
         }
 
         // GET: api/completionsrates/{schoolid}
+        [HttpGet("{schoolId}")]
         public IActionResult GetSchoolCompletionRates(int schoolId)
         {
-            Console.WriteLine(schoolId);
             var completionRateResult = _context.completionrates.FirstOrDefault(c => c.schoolid == schoolId);
-            Console.WriteLine(completionRateResult.schoolid);
             return Ok(completionRateResult);
         }
     }

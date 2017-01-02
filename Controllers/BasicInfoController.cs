@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using UniversityData.Service;
 using System;
 using UniversityData.Services.Interfaces;
 
@@ -9,12 +7,10 @@ namespace UniversityData.Controllers
     [Route("api/[controller]")]
     public class BasicInfoController : Controller
     {
-        private readonly UniversityContext _context;
         public IBasicInfoRepository _repository;
 
-        public BasicInfoController(UniversityContext context, IBasicInfoRepository repository)
+        public BasicInfoController(IBasicInfoRepository repository)
         {
-            _context = context;
             _repository = repository;
         }
 
@@ -26,8 +22,8 @@ namespace UniversityData.Controllers
             return Ok(basicInfoResults);
         }
 
-        // GET: api/BasicInfo/1
-        [HttpGet("{id}")]
+        // GET: api/BasicInfo/{unitId}
+        [HttpGet("{unitId}")]
         public IActionResult GetSchoolInformation(int unitId)
         {
             try 
