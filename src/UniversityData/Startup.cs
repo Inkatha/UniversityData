@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using UniversityData.Services;
 using UniversityData.Services.Interfaces;
+using System;
 
 namespace UniversityData
 {
@@ -29,7 +30,7 @@ namespace UniversityData
             // Add framework services.
             services.AddMvc();
 
-            var connectionString = Configuration["DbContextSettings:ConnectionString"];
+            var connectionString = GetConnectionString();
             services.AddDbContext<UniversityContext>(
                 opts => opts.UseNpgsql(connectionString)
             );
@@ -54,6 +55,34 @@ namespace UniversityData
             loggerFactory.AddDebug();
 
             app.UseMvc();
+        }
+
+        public string GetConnectionString()
+        {
+            try {
+                var uriString = Environment.GetEnvironmentVariable("ELEPHANT_UNIVERSITY_URL") ?? 
+                            Configuration["DbContextSettings:ConnectionString"];
+            
+                // No need to parse string if ElephantSQL url is not available.
+                if (uriString == Configuration["DbContextSettings:ConnectionString"])
+                {
+                    return uriString;
+                }
+
+                var uri = new Uri(uriString);
+                var db = uri.AbsolutePath.Trim('/');
+                var user = uri.UserInfo.Split(':')[0];
+                var passwd = uri.UserInfo.Split(':')[1];
+                var port = uri.Port > 0 ? uri.Port : 5432;
+                var connStr = string.Format("Server={0};Database={1};User Id={2};Password={3};Port={4}", uri.Host, db, user, passwd, port);
+
+                return connStr;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An Error Occured", ex);
+                return null;
+            }
         }
     }
 }
