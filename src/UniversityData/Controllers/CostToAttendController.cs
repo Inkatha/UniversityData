@@ -12,7 +12,7 @@ namespace UniversityData.Controllers
             _repository = repository;
         }
 
-        // GET: api/costToAttend
+        // GET: api/costtoattend
         [HttpGet]
         public IActionResult GetAllCostToAttend()
         {

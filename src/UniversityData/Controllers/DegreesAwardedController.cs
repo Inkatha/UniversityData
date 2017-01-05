@@ -12,7 +12,7 @@ namespace UniversityData.Controllers
             _repository = repository;
         }
 
-        // GET: api/degreesAwarded
+        // GET: api/degreesawarded
         [HttpGet]
         public IActionResult GetAllDegreesAwarded()
         {
@@ -20,7 +20,7 @@ namespace UniversityData.Controllers
             return Ok(degreesAwardedResult);
         }
 
-        // GET: api/degreesAwarded/{schoolId}
+        // GET: api/degreesawarded/{schoolId}
         [HttpGet("{schoolId}")]
         public IActionResult GetSchoolDegreesAwarded(int schoolId)
         {

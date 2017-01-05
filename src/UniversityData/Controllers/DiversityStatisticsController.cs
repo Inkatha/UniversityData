@@ -12,7 +12,7 @@ namespace UniversityData.Controllers
             _repository = repository;
         }
 
-        // GET: api/diversityStatitics
+        // GET: api/diversitystatitics
         [HttpGet]
         public IActionResult GetAllDiversityStatistics()
         {
@@ -20,7 +20,7 @@ namespace UniversityData.Controllers
             return Ok(diversityStatisticsResult);
         }
 
-        // GET: api/diversityStatitics/{schoolId}
+        // GET: api/diversitystatitics/{schoolId}
         [HttpGet("{schoolId}")]
         public IActionResult GetSchoolDiverisityStatistics(int schoolId)
         {

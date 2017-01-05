@@ -19,9 +19,14 @@ namespace UniversityData.Services
             return _context.basicinfo.OrderBy(c => c.unitid).ToList();
         }
 
-        public BasicInfo GetSchoolBasicInformation(int unitid)
+        public BasicInfo GetSchoolBasicInformation(int unitId)
         {
-            return _context.basicinfo.FirstOrDefault(c => c.unitid == unitid);
+            return _context.basicinfo.FirstOrDefault(c => c.unitid == unitId);
+        }
+
+        public string GetSchoolName(int unitId)
+        {
+            return _context.basicinfo.FirstOrDefault(c => c.unitid == unitId).instnm;
         }
 
         public bool SchoolExists(int unitId)
