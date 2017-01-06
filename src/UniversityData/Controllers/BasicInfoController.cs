@@ -50,7 +50,7 @@ namespace UniversityData.Controllers
         }
         
         // GET: api/basicinfo/{unitId}/name
-        [HttpGet("{schoolid}/name")]
+        [HttpGet("{unitId}/name")]
         public IActionResult GetSchoolName(int unitId)
         {
             try 
