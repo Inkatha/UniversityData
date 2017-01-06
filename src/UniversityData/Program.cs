@@ -16,10 +16,9 @@ namespace UniversityData
                 .Build();
 
             var host = new WebHostBuilder()
-                .UseConfiguration(config)
                 .UseKestrel()
+                .UseConfiguration(config)
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
 
