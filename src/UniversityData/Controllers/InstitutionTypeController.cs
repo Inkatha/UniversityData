@@ -6,17 +6,17 @@ namespace UniversityData.Controllers
     [Route("api/[controller]")]
     public class InstitutionTypeController : Controller
     {
-        private readonly IInstitutionTypeRepository _repository;
-        public InstitutionTypeController(IInstitutionTypeRepository repository)
+        private readonly IInstitutionTypeRepository _institutionTypeRepository;
+        public InstitutionTypeController(IInstitutionTypeRepository institutionTypeRepository)
         {
-            _repository = repository;
+            _institutionTypeRepository = institutionTypeRepository;
         }
 
         // GET: api/institutiontype
         [HttpGet]
         public IActionResult GetAllInstitutionType()
         {
-            var institutionTypeResults = _repository.GetAllInstitutionType();
+            var institutionTypeResults = _institutionTypeRepository.GetAllInstitutionType();
             return Ok(institutionTypeResults);
         }
 
@@ -24,7 +24,7 @@ namespace UniversityData.Controllers
         [HttpGet("{schoolid}")]
         public IActionResult GetSchoolInstitutionType(int schoolId)
         {
-            var institutionTypeResult = _repository.GetSchoolInstitutionType(schoolId);
+            var institutionTypeResult = _institutionTypeRepository.GetSchoolInstitutionType(schoolId);
             return Ok(institutionTypeResult);
         }
     }

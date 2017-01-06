@@ -6,17 +6,17 @@ namespace UniversityData.Controllers
     [Route("api/[controller]")]
     public class StudentLoanDebtsController : Controller
     {
-        private readonly IStudentLoanDebtsRepository _repository;
-        public StudentLoanDebtsController(IStudentLoanDebtsRepository repository)
+        private readonly IStudentLoanDebtsRepository _studentLoanDebtsRepository;
+        public StudentLoanDebtsController(IStudentLoanDebtsRepository studentLoanDebtsRepository)
         {
-            _repository = repository;
+            _studentLoanDebtsRepository = studentLoanDebtsRepository;
         }
 
         // GET: api/studentloandebts
         [HttpGet]
         public IActionResult GetAllStudentLoanDebts()
         {
-            var studentLoanDebtResults = _repository.GetAllStudentLoanDebts();
+            var studentLoanDebtResults = _studentLoanDebtsRepository.GetAllStudentLoanDebts();
             return Ok(studentLoanDebtResults);
         }
 
@@ -24,7 +24,7 @@ namespace UniversityData.Controllers
         [HttpGet("{schoolId}")]
         public IActionResult GetSchoolStudentLoanDebts(int schoolId)
         {
-            var studentLoanDebtResult = _repository.GetSchoolStudentLoanDebts(schoolId);
+            var studentLoanDebtResult = _studentLoanDebtsRepository.GetSchoolStudentLoanDebts(schoolId);
             return Ok(studentLoanDebtResult);
         }
     }

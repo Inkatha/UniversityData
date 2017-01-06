@@ -29,6 +29,11 @@ namespace UniversityData.Services
             return _context.basicinfo.FirstOrDefault(c => c.unitid == unitId).instnm;
         }
 
+        public string GetSchoolUrl(int unitId)
+        {
+            return _context.basicinfo.FirstOrDefault(c => c.unitid == unitId).insturl;
+        }
+
         public bool SchoolExists(int unitId)
         {
             return _context.basicinfo.Any(c => c.unitid == unitId);

@@ -6,17 +6,17 @@ namespace UniversityData.Controllers
     [Route("api/[controller]")]
     public class RetentionRatesController : Controller
     {
-        private readonly IRetentionRatesRepository _repository;
-        public RetentionRatesController(IRetentionRatesRepository repository)
+        private readonly IRetentionRatesRepository _retentionRatesRepository;
+        public RetentionRatesController(IRetentionRatesRepository retentionRatesRepository)
         {
-            _repository = repository;
+            _retentionRatesRepository = retentionRatesRepository;
         }
 
         // GET: api/retentionrates
         [HttpGet]
         public IActionResult GetAllRetentionRates()
         {
-            var retentionRatesResults = _repository.GetAllRetentionRates();
+            var retentionRatesResults = _retentionRatesRepository.GetAllRetentionRates();
             return Ok(retentionRatesResults);
         }
 
@@ -24,7 +24,7 @@ namespace UniversityData.Controllers
         [HttpGet("{schoolId}")]
         public IActionResult GetSchoolRetentionRates(int schoolId)
         {
-            var retentionRatesResult = _repository.GetSchoolRetentionRates(schoolId);
+            var retentionRatesResult = _retentionRatesRepository.GetSchoolRetentionRates(schoolId);
             return Ok(retentionRatesResult);
         }
     }

@@ -8,6 +8,7 @@ namespace UniversityData.Services.Interfaces
         IEnumerable<BasicInfo> GetAllBasicInformation();
         BasicInfo GetSchoolBasicInformation(int unitId);
         string GetSchoolName(int unitId);
+        string GetSchoolUrl(int unitId);
         bool SchoolExists(int unitId);
     }
 }

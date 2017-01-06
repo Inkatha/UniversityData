@@ -6,17 +6,17 @@ namespace UniversityData.Controllers
     [Route("api/[controller]")]
     public class CompletionRatesController : Controller
     {
-        private readonly ICompletionRatesRepository _repository;
-        public CompletionRatesController(ICompletionRatesRepository repository)
+        private readonly ICompletionRatesRepository _completionRatesRepository;
+        public CompletionRatesController(ICompletionRatesRepository completionRatesRepository)
         {
-            _repository = repository;
+            _completionRatesRepository = completionRatesRepository;
         }
 
         // GET: api/completionrates
         [HttpGet]
         public IActionResult GetAllCompletionRates()
         {
-            var completionRatesResults = _repository.GetAllCompletionRates();
+            var completionRatesResults = _completionRatesRepository.GetAllCompletionRates();
             return Ok(completionRatesResults);            
         }
 
@@ -24,7 +24,7 @@ namespace UniversityData.Controllers
         [HttpGet("{schoolId}")]
         public IActionResult GetSchoolCompletionRates(int schoolId)
         {
-            var completionRateResult = _repository.GetSchoolCompletionRates(schoolId);
+            var completionRateResult = _completionRatesRepository.GetSchoolCompletionRates(schoolId);
             return Ok(completionRateResult);
         }
     }

@@ -6,17 +6,17 @@ namespace UniversityData.Controllers
     [Route("api/[controller]")]
     public class EarningsAfterGraduationController : Controller
     {
-        private readonly IEarningsAfterGraduationRepository _repository;
-        public EarningsAfterGraduationController(IEarningsAfterGraduationRepository repository)
+        private readonly IEarningsAfterGraduationRepository _earningsAfterGraduationRepository;
+        public EarningsAfterGraduationController(IEarningsAfterGraduationRepository earningsAfterGraduationRepository)
         {
-            _repository = repository;
+            _earningsAfterGraduationRepository = earningsAfterGraduationRepository;
         }
 
         // GET: api/earningsaftergraduation
         [HttpGet]
         public IActionResult GetAllEarningsAfterGraduation()
         {
-            var earningsAfterGraduationResult = _repository.GetAllEarningsAfterGraduation();
+            var earningsAfterGraduationResult = _earningsAfterGraduationRepository.GetAllEarningsAfterGraduation();
             return Ok(earningsAfterGraduationResult); 
         }
 
@@ -24,7 +24,7 @@ namespace UniversityData.Controllers
         [HttpGet("{schoolId}")]
         public IActionResult GetSchoolEarningsAfterGraduation(int schoolId)
         {
-            var earningsaftergraduation = _repository.GetSchoolEarningsAfterGraduation(schoolId);
+            var earningsaftergraduation = _earningsAfterGraduationRepository.GetSchoolEarningsAfterGraduation(schoolId);
             return Ok(earningsaftergraduation);
         }
     }

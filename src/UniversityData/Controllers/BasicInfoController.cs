@@ -7,18 +7,18 @@ namespace UniversityData.Controllers
     [Route("api/[controller]")]
     public class BasicInfoController : Controller
     {
-        public IBasicInfoRepository _repository;
+        public IBasicInfoRepository _basicInfoRepository;
 
-        public BasicInfoController(IBasicInfoRepository repository)
+        public BasicInfoController(IBasicInfoRepository basicInfoRepository)
         {
-            _repository = repository;
+            _basicInfoRepository = basicInfoRepository;
         }
 
         // GET: api/basicinfo
         [HttpGet]
         public IActionResult GetAllInformation()
         {
-            var basicInfoResults = _repository.GetAllBasicInformation();
+            var basicInfoResults = _basicInfoRepository.GetAllBasicInformation();
             return Ok(basicInfoResults);
         }
 
@@ -28,12 +28,12 @@ namespace UniversityData.Controllers
         {
             try 
             {
-                if (!_repository.SchoolExists(unitId))
+                if (!_basicInfoRepository.SchoolExists(unitId))
                 {
                     return NotFound();
                 }
 
-                var basicInfoResults = _repository.GetSchoolBasicInformation(unitId);
+                var basicInfoResults = _basicInfoRepository.GetSchoolBasicInformation(unitId);
                 if (basicInfoResults == null)
                 {
                     return NotFound();
@@ -44,7 +44,7 @@ namespace UniversityData.Controllers
             catch (Exception ex)
             {
                 //TODO Add logging
-                Console.WriteLine("An Error Occured:" + ex.StackTrace);
+                Console.WriteLine("An error occured:" + ex.StackTrace);
                 return StatusCode(500, "A problem occured while handling your request.");
             }
         }
@@ -55,12 +55,12 @@ namespace UniversityData.Controllers
         {
             try 
             {
-                if (!_repository.SchoolExists(unitId))
+                if (!_basicInfoRepository.SchoolExists(unitId))
                 {
                     return NotFound();
                 }
 
-                var schoolName = _repository.GetSchoolName(unitId);
+                var schoolName = _basicInfoRepository.GetSchoolName(unitId);
                 if (schoolName == null)
                 {
                     return NotFound();
@@ -73,6 +73,32 @@ namespace UniversityData.Controllers
                 //TODO Add logging
                 Console.WriteLine("An error occured:", ex.StackTrace);
                 return StatusCode(500, "A problem occured while handling your request.");
+            }
+        }
+
+        // GET: api/basicinfo/{unitId}/url
+        [HttpGet("{unitId}/url")]
+        public IActionResult GetSchoolUrl(int unitId)
+        {
+            try 
+            {
+                if (!_basicInfoRepository.SchoolExists(unitId))
+                {
+                    return NotFound();
+                }
+
+                var schoolUrl = _basicInfoRepository.GetSchoolUrl(unitId);
+                if (schoolUrl == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(schoolUrl);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("An error occured:", ex.StackTrace);
+                return StatusCode(500, "An error occured while handling your request");
             }
         }
     }

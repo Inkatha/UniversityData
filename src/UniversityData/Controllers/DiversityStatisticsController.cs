@@ -6,17 +6,17 @@ namespace UniversityData.Controllers
     [Route("api/[controller]")]
     public class DiversityStatisticsController : Controller
     {
-        private readonly IDiversityStatisticsRepository _repository;
-        public DiversityStatisticsController(IDiversityStatisticsRepository repository)
+        private readonly IDiversityStatisticsRepository _diversityStatisticsRepository;
+        public DiversityStatisticsController(IDiversityStatisticsRepository diversityStatisticsRepository)
         {
-            _repository = repository;
+            _diversityStatisticsRepository = diversityStatisticsRepository;
         }
 
         // GET: api/diversitystatitics
         [HttpGet]
         public IActionResult GetAllDiversityStatistics()
         {
-            var diversityStatisticsResult = _repository.GetAllDiversityStatistics();
+            var diversityStatisticsResult = _diversityStatisticsRepository.GetAllDiversityStatistics();
             return Ok(diversityStatisticsResult);
         }
 
@@ -24,7 +24,7 @@ namespace UniversityData.Controllers
         [HttpGet("{schoolId}")]
         public IActionResult GetSchoolDiverisityStatistics(int schoolId)
         {
-            var diversityStatiticsResult = _repository.GetSchoolDiversityStatistics(schoolId);
+            var diversityStatiticsResult = _diversityStatisticsRepository.GetSchoolDiversityStatistics(schoolId);
             return Ok(diversityStatiticsResult);
         }
     }

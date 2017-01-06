@@ -6,10 +6,10 @@ namespace UniversityData.Controllers
     [Route("api/[controller]")]
     public class StandardizedTestAveragesController : Controller
     {
-        private readonly IStandardizedTestAveragesRepository _repository;
-        public StandardizedTestAveragesController(IStandardizedTestAveragesRepository repository)
+        private readonly IStandardizedTestAveragesRepository _standardizedTestAveragesRepository;
+        public StandardizedTestAveragesController(IStandardizedTestAveragesRepository standardizedTestAveragesRepository)
         {
-            _repository = repository;
+            _standardizedTestAveragesRepository = standardizedTestAveragesRepository;
         }
 
         // GET: api/standardizedtestaverages
@@ -17,7 +17,7 @@ namespace UniversityData.Controllers
         public IActionResult GetAllStandardizedTestAverages()
         {
             // TODO: Figure out why this causes an error
-            var standardizedTestAveragesResults = _repository.GetAllStandardizedTestAverages();
+            var standardizedTestAveragesResults = _standardizedTestAveragesRepository.GetAllStandardizedTestAverages();
             return Ok(standardizedTestAveragesResults);
         }
 
@@ -25,7 +25,7 @@ namespace UniversityData.Controllers
         [HttpGet("{schoolId}")]
         public IActionResult GetSchoolStandardizedTestAverages(int schoolId)
         {
-            var standardizedTestAveragesResult = _repository.GetSchoolStandardizedTestAverages(schoolId);
+            var standardizedTestAveragesResult = _standardizedTestAveragesRepository.GetSchoolStandardizedTestAverages(schoolId);
             return Ok(standardizedTestAveragesResult);
         }
     }
