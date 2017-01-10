@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using UniversityData.Services;
 using UniversityData.Services.Interfaces;
 using System;
+using Microsoft.AspNetCore.ResponseCompression;
 
 namespace UniversityData
 {
@@ -29,6 +30,15 @@ namespace UniversityData
         {
             // Add framework services.
             services.AddMvc();
+            services.AddResponseCompression();
+
+
+            services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
+                    
+            services.AddResponseCompression(options =>
+            {
+                options.Providers.Add<GzipCompressionProvider>();
+            });
 
             var connectionString = GetConnectionString();
             services.AddDbContext<UniversityContext>(
@@ -54,6 +64,7 @@ namespace UniversityData
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseResponseCompression();
             app.UseMvc();
         }
 
