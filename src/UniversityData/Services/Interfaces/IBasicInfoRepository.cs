@@ -1,14 +1,15 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UniversityData.Models;
 
 namespace UniversityData.Services.Interfaces
 {
     public interface IBasicInfoRepository
     {
-        IEnumerable<BasicInfo> GetAllBasicInformation();
-        BasicInfo GetSchoolBasicInformation(int unitId);
-        string GetSchoolName(int unitId);
-        string GetSchoolUrl(int unitId);
-        bool SchoolExists(int unitId);
+        Task<IEnumerable<BasicInfo>> GetAllBasicInformation();
+        Task<BasicInfo> GetSchoolBasicInformation(int unitId);
+        Task<string> GetSchoolName(int unitId);
+        Task<string> GetSchoolUrl(int unitId);
+        Task<bool> SchoolExists(int unitId);
     }
 }

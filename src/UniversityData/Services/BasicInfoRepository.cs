@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using UniversityData.Models;
 using UniversityData.Services.Interfaces;
 
@@ -14,29 +16,34 @@ namespace UniversityData.Services
             _context = context;
         }
 
-        public IEnumerable<BasicInfo> GetAllBasicInformation()
+        public async Task<IEnumerable<BasicInfo>> GetAllBasicInformation()
         {
-            return _context.basicinfo.OrderBy(c => c.unitid).ToList();
+            var result = await _context.basicinfo.OrderBy(c => c.unitid).ToListAsync();
+            return result;
         }
 
-        public BasicInfo GetSchoolBasicInformation(int unitId)
+        public async Task<BasicInfo> GetSchoolBasicInformation(int unitId)
         {
-            return _context.basicinfo.FirstOrDefault(c => c.unitid == unitId);
+            var result = await _context.basicinfo.FirstOrDefaultAsync(c => c.unitid == unitId);
+            return result;
         }
 
-        public string GetSchoolName(int unitId)
+        public async Task<string> GetSchoolName(int unitId)
         {
-            return _context.basicinfo.FirstOrDefault(c => c.unitid == unitId).instnm;
+            var result = await GetSchoolBasicInformation(unitId);
+            return result.instnm;
         }
 
-        public string GetSchoolUrl(int unitId)
+        public async Task<string> GetSchoolUrl(int unitId)
         {
-            return _context.basicinfo.FirstOrDefault(c => c.unitid == unitId).insturl;
+            var result = await GetSchoolBasicInformation(unitId);
+            return result.insturl;
         }
 
-        public bool SchoolExists(int unitId)
+        public async Task<bool> SchoolExists(int unitId)
         {
-            return _context.basicinfo.Any(c => c.unitid == unitId);
+            var result = await _context.basicinfo.AnyAsync(c => c.unitid == unitId);
+            return result;
         }
     }
 }

@@ -54,7 +54,6 @@ namespace UniversityData
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseResponseCompression();
             app.UseMvc();
         }
 

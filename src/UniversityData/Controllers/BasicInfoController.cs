@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using UniversityData.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace UniversityData.Controllers
 {
@@ -16,30 +17,30 @@ namespace UniversityData.Controllers
 
         // GET: api/basicinfo
         [HttpGet]
-        public IActionResult GetAllInformation()
+        public async Task<IActionResult> GetAllInformationAsync()
         {
-            var basicInfoResults = _basicInfoRepository.GetAllBasicInformation();
-            return Ok(basicInfoResults);
+            var result = await _basicInfoRepository.GetAllBasicInformation();
+            return Ok(result);
         }
 
         // GET: api/basicinfo/{unitId}
         [HttpGet("{unitId}")]
-        public IActionResult GetSchoolInformation(int unitId)
+        public async Task<IActionResult> GetSchoolInformation(int unitId)
         {
             try 
             {
-                if (!_basicInfoRepository.SchoolExists(unitId))
+                if (await _basicInfoRepository.SchoolExists(unitId) == false)
                 {
                     return NotFound();
                 }
 
-                var basicInfoResults = _basicInfoRepository.GetSchoolBasicInformation(unitId);
-                if (basicInfoResults == null)
+                var result = await _basicInfoRepository.GetSchoolBasicInformation(unitId);
+                if (result == null)
                 {
                     return NotFound();
                 }
 
-                return Ok(basicInfoResults);
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -51,22 +52,22 @@ namespace UniversityData.Controllers
         
         // GET: api/basicinfo/{unitId}/name
         [HttpGet("{unitId}/name")]
-        public IActionResult GetSchoolName(int unitId)
+        public async Task<IActionResult> GetSchoolName(int unitId)
         {
             try 
             {
-                if (!_basicInfoRepository.SchoolExists(unitId))
+                if (await _basicInfoRepository.SchoolExists(unitId) == false)
                 {
                     return NotFound();
                 }
 
-                var schoolName = _basicInfoRepository.GetSchoolName(unitId);
-                if (schoolName == null)
+                var result = await _basicInfoRepository.GetSchoolName(unitId);
+                if (result == null)
                 {
                     return NotFound();
                 }
 
-                return Ok(schoolName);
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -78,22 +79,22 @@ namespace UniversityData.Controllers
 
         // GET: api/basicinfo/{unitId}/url
         [HttpGet("{unitId}/url")]
-        public IActionResult GetSchoolUrl(int unitId)
+        public async Task<IActionResult> GetSchoolUrl(int unitId)
         {
             try 
             {
-                if (!_basicInfoRepository.SchoolExists(unitId))
+                if (await _basicInfoRepository.SchoolExists(unitId) == false)
                 {
                     return NotFound();
                 }
 
-                var schoolUrl = _basicInfoRepository.GetSchoolUrl(unitId);
-                if (schoolUrl == null)
+                var result = await _basicInfoRepository.GetSchoolUrl(unitId);
+                if (result == null)
                 {
                     return NotFound();
                 }
 
-                return Ok(schoolUrl);
+                return Ok(result);
             }
             catch(Exception ex)
             {
