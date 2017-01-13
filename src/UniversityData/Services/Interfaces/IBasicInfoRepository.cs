@@ -6,10 +6,10 @@ namespace UniversityData.Services.Interfaces
 {
     public interface IBasicInfoRepository
     {
-        Task<IEnumerable<BasicInfo>> GetAllBasicInformation();
-        Task<BasicInfo> GetSchoolBasicInformation(int unitId);
-        Task<string> GetSchoolName(int unitId);
-        Task<string> GetSchoolUrl(int unitId);
-        Task<bool> SchoolExists(int unitId);
+        Task<IEnumerable<BasicInfo>> GetAllBasicInformationAsync();
+        Task<BasicInfo> GetSchoolBasicInformationAsync(int unitId);
+        Task<string> GetSchoolNameAsync(int unitId);
+        Task<string> GetSchoolUrlAsync(int unitId);
+        Task<bool> SchoolExistsAsync(int unitId);
     }
 }

@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using UniversityData.Models;
 using UniversityData.Services.Interfaces;
 
@@ -15,14 +15,16 @@ namespace UniversityData.Services
             _context = context;
         }
 
-        public IEnumerable<StandardizedTestAverages> GetAllStandardizedTestAverages()
+        public async Task<IEnumerable<StandardizedTestAverages>> GetAllStandardizedTestAveragesAsync()
         {
-            return _context.standardizedtestaverages.ToList();
+            var result = await _context.standardizedtestaverages.ToListAsync();
+            return result;
         }
 
-        public StandardizedTestAverages GetSchoolStandardizedTestAverages(int schoolId)
+        public async Task<StandardizedTestAverages> GetSchoolStandardizedTestAveragesAsync(int schoolId)
         {
-            return _context.standardizedtestaverages.FirstOrDefault(c => c.schoolid == schoolId);
+            var result = await _context.standardizedtestaverages.FirstOrDefaultAsync(c => c.schoolid == schoolId);
+            return result;
         }
     }
 }

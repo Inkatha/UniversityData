@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using UniversityData.Models;
 using UniversityData.Services.Interfaces;
 
@@ -13,14 +13,17 @@ namespace UniversityData.Services
         {
             _context = context;
         }
-        IEnumerable<DegreesAwarded> IDegreesAwardedRepository.GetAllDegreesAwarded()
+        
+        public async Task<IEnumerable<DegreesAwarded>> GetAllDegreesAwardedAsync()
         {
-            return _context.degreesawarded.ToList();
+            var result = await _context.degreesawarded.ToListAsync();
+            return result;
         }
 
-        DegreesAwarded IDegreesAwardedRepository.GetSchoolDegreesAwarded(int schoolId)
+        public async Task<DegreesAwarded> GetSchoolDegreesAwardedAsync(int schoolId)
         {
-            return _context.degreesawarded.FirstOrDefault(c => c.schoolid == schoolId);
+            var result = await _context.degreesawarded.FirstOrDefaultAsync(c => c.schoolid == schoolId);
+            return result;
         }
     }
 }

@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UniversityData.Models;
 
 namespace UniversityData.Services.Interfaces
 {
     public interface IInstitutionTypeRepository
     {
-        IEnumerable<InstitutionType> GetAllInstitutionType();
-        InstitutionType GetSchoolInstitutionType(int schoolId);
+        Task<IEnumerable<InstitutionType>> GetAllInstitutionTypeAsync();
+        Task<InstitutionType> GetSchoolInstitutionTypeAsync(int schoolId);
     } 
 }

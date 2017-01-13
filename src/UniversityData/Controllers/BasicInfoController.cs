@@ -19,7 +19,7 @@ namespace UniversityData.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllInformationAsync()
         {
-            var result = await _basicInfoRepository.GetAllBasicInformation();
+            var result = await _basicInfoRepository.GetAllBasicInformationAsync();
             return Ok(result);
         }
 
@@ -29,12 +29,12 @@ namespace UniversityData.Controllers
         {
             try 
             {
-                if (await _basicInfoRepository.SchoolExists(unitId) == false)
+                if (await _basicInfoRepository.SchoolExistsAsync(unitId) == false)
                 {
                     return NotFound();
                 }
 
-                var result = await _basicInfoRepository.GetSchoolBasicInformation(unitId);
+                var result = await _basicInfoRepository.GetSchoolBasicInformationAsync(unitId);
                 if (result == null)
                 {
                     return NotFound();
@@ -56,12 +56,12 @@ namespace UniversityData.Controllers
         {
             try 
             {
-                if (await _basicInfoRepository.SchoolExists(unitId) == false)
+                if (await _basicInfoRepository.SchoolExistsAsync(unitId) == false)
                 {
                     return NotFound();
                 }
 
-                var result = await _basicInfoRepository.GetSchoolName(unitId);
+                var result = await _basicInfoRepository.GetSchoolNameAsync(unitId);
                 if (result == null)
                 {
                     return NotFound();
@@ -83,12 +83,12 @@ namespace UniversityData.Controllers
         {
             try 
             {
-                if (await _basicInfoRepository.SchoolExists(unitId) == false)
+                if (await _basicInfoRepository.SchoolExistsAsync(unitId) == false)
                 {
                     return NotFound();
                 }
 
-                var result = await _basicInfoRepository.GetSchoolUrl(unitId);
+                var result = await _basicInfoRepository.GetSchoolUrlAsync(unitId);
                 if (result == null)
                 {
                     return NotFound();

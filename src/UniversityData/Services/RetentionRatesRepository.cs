@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using UniversityData.Models;
 using UniversityData.Services.Interfaces;
 
@@ -14,14 +14,16 @@ namespace UniversityData.Services
             _context = context;
         }
 
-        public IEnumerable<RetentionRates> GetAllRetentionRates()
+        public async Task<IEnumerable<RetentionRates>> GetAllRetentionRatesAsync()
         {
-            return _context.retentionrates.ToList();
+            var result = await _context.retentionrates.ToListAsync();
+            return result;
         }
 
-        public RetentionRates GetSchoolRetentionRates(int schoolId)
+        public async Task<RetentionRates> GetSchoolRetentionRatesAsync(int schoolId)
         {
-            return _context.retentionrates.FirstOrDefault(c => c.schoolid == schoolId);
+            var result = await _context.retentionrates.FirstOrDefaultAsync(c => c.schoolid == schoolId);
+            return result;
         }
     }
 }

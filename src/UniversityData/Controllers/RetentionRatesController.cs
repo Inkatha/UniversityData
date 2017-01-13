@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using UniversityData.Services.Interfaces;
 
@@ -14,18 +15,18 @@ namespace UniversityData.Controllers
 
         // GET: api/retentionrates
         [HttpGet]
-        public IActionResult GetAllRetentionRates()
+        public async Task<IActionResult> GetAllRetentionRatesAsync()
         {
-            var retentionRatesResults = _retentionRatesRepository.GetAllRetentionRates();
-            return Ok(retentionRatesResults);
+            var results = await _retentionRatesRepository.GetAllRetentionRatesAsync();
+            return Ok(results);
         }
 
         // GET: api/retentionrates/{schoolId}
         [HttpGet("{schoolId}")]
-        public IActionResult GetSchoolRetentionRates(int schoolId)
+        public async Task<IActionResult> GetSchoolRetentionRates(int schoolId)
         {
-            var retentionRatesResult = _retentionRatesRepository.GetSchoolRetentionRates(schoolId);
-            return Ok(retentionRatesResult);
+            var result = await _retentionRatesRepository.GetSchoolRetentionRatesAsync(schoolId);
+            return Ok(result);
         }
     }
 }

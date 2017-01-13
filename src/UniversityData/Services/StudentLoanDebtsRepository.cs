@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using UniversityData.Models;
 using UniversityData.Services.Interfaces;
 
@@ -14,14 +14,16 @@ namespace UniversityData.Services
             _context = context;
         }
 
-        public IEnumerable<StudentLoanDebts> GetAllStudentLoanDebts()
+        public async Task<IEnumerable<StudentLoanDebts>> GetAllStudentLoanDebtsAsync()
         {
-            return _context.studentloandebts.ToList();
+            var result = await _context.studentloandebts.ToListAsync();
+            return result;
         }
 
-        public StudentLoanDebts GetSchoolStudentLoanDebts(int schoolId)
+        public async Task<StudentLoanDebts> GetSchoolStudentLoanDebtsAsync(int schoolId)
         {
-            return _context.studentloandebts.FirstOrDefault(c => c.schoolid == schoolId);
+            var result = await _context.studentloandebts.FirstOrDefaultAsync(c => c.schoolid == schoolId);
+            return result;
         }
     }
 }

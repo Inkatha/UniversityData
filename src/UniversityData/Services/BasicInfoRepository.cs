@@ -16,31 +16,31 @@ namespace UniversityData.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<BasicInfo>> GetAllBasicInformation()
+        public async Task<IEnumerable<BasicInfo>> GetAllBasicInformationAsync()
         {
             var result = await _context.basicinfo.OrderBy(c => c.unitid).ToListAsync();
             return result;
         }
 
-        public async Task<BasicInfo> GetSchoolBasicInformation(int unitId)
+        public async Task<BasicInfo> GetSchoolBasicInformationAsync(int unitId)
         {
             var result = await _context.basicinfo.FirstOrDefaultAsync(c => c.unitid == unitId);
             return result;
         }
 
-        public async Task<string> GetSchoolName(int unitId)
+        public async Task<string> GetSchoolNameAsync(int unitId)
         {
-            var result = await GetSchoolBasicInformation(unitId);
+            var result = await GetSchoolBasicInformationAsync(unitId);
             return result.instnm;
         }
 
-        public async Task<string> GetSchoolUrl(int unitId)
+        public async Task<string> GetSchoolUrlAsync(int unitId)
         {
-            var result = await GetSchoolBasicInformation(unitId);
+            var result = await GetSchoolBasicInformationAsync(unitId);
             return result.insturl;
         }
 
-        public async Task<bool> SchoolExists(int unitId)
+        public async Task<bool> SchoolExistsAsync(int unitId)
         {
             var result = await _context.basicinfo.AnyAsync(c => c.unitid == unitId);
             return result;

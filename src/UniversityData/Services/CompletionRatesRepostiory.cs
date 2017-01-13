@@ -1,5 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using UniversityData.Models;
 using UniversityData.Services.Interfaces;
 
@@ -12,15 +13,16 @@ namespace UniversityData.Services
         {
             _context = context;
         }
-
-        public IEnumerable<CompletionRates> GetAllCompletionRates()
+        public async Task<IEnumerable<CompletionRates>> GetAllCompletionRatesAsync()
         {
-            return _context.completionrates.ToList();
+            var result = await _context.completionrates.ToListAsync();
+            return result;
         }
 
-        public CompletionRates GetSchoolCompletionRates(int schoolId)
+        public async Task<CompletionRates> GetSchoolCompletionRatesAsync(int schoolId)
         {
-            return _context.completionrates.FirstOrDefault(c => c.schoolid == schoolId);
+            var result = await _context.completionrates.FirstOrDefaultAsync(c => c.schoolid == schoolId);
+            return result;
         }
     }
 }

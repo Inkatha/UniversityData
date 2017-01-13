@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UniversityData.Models;
 
 namespace UniversityData.Services.Interfaces
 {
     public interface IDegreesAwardedRepository
     {
-        IEnumerable<DegreesAwarded> GetAllDegreesAwarded();
-        DegreesAwarded GetSchoolDegreesAwarded(int schoolId);
+        Task<IEnumerable<DegreesAwarded>> GetAllDegreesAwardedAsync();
+        Task<DegreesAwarded> GetSchoolDegreesAwardedAsync(int schoolId);
     }
 }

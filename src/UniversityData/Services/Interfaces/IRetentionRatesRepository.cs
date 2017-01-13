@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UniversityData.Models;
 
 namespace UniversityData.Services.Interfaces
 {
     public interface IRetentionRatesRepository
     {
-        IEnumerable<RetentionRates> GetAllRetentionRates();
-        RetentionRates GetSchoolRetentionRates(int schoolId);
+        Task<IEnumerable<RetentionRates>> GetAllRetentionRatesAsync();
+        Task<RetentionRates> GetSchoolRetentionRatesAsync(int schoolId);
     }
 }

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using UniversityData.Services.Interfaces;
 
@@ -14,18 +15,18 @@ namespace UniversityData.Controllers
 
         // GET: api/financialaidprovided
         [HttpGet]
-        public IActionResult GetAllFinancialAidProvided()
+        public async Task<IActionResult> GetAllFinancialAidProvidedAsync()
         {
-            var financialAidProvidedResults = _financialAidProvidedRepository.GetAllFinancialAidProvided();
-            return Ok(financialAidProvidedResults);
+            var result = await _financialAidProvidedRepository.GetAllFinancialAidProvidedAsync();
+            return Ok(result);
         }
 
         // GET: api/financialaidprovided/{schoolId}
         [HttpGet("{schoolId}")]
-        public IActionResult GetSchoolFinancialAidProvided(int schoolId)
+        public async Task<IActionResult> GetSchoolFinancialAidProvidedAsync(int schoolId)
         {
-            var financialAidProvidedResult = _financialAidProvidedRepository.GetSchoolFinancialAidProvided(schoolId);
-            return Ok(financialAidProvidedResult);
+            var result = await _financialAidProvidedRepository.GetSchoolFinancialAidProvidedAsync(schoolId);
+            return Ok(result);
         }
     }
 }

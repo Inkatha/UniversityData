@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using UniversityData.Models;
 using UniversityData.Services.Interfaces;
 
@@ -11,14 +12,16 @@ namespace UniversityData.Services
         public EarningsAfterGraduationRepository(UniversityContext context)
         {
             _context = context;
-        }   
-        public IEnumerable<EarningsAfterGraduation> GetAllEarningsAfterGraduation()
-        {
-            return _context.earningsaftergraduation.ToList();
         }
-        public EarningsAfterGraduation GetSchoolEarningsAfterGraduation(int schoolId)
+        public async Task<IEnumerable<EarningsAfterGraduation>> GetAllEarningsAfterGraduationAsync()
         {
-            return _context.earningsaftergraduation.FirstOrDefault(c => c.schoolid == schoolId);
+            var result = await _context.earningsaftergraduation.ToListAsync();
+            return result;
+        }
+        public async Task<EarningsAfterGraduation> GetSchoolEarningsAfterGraduationAsync(int schoolId)
+        {
+            var result = await _context.earningsaftergraduation.FirstOrDefaultAsync(c => c.schoolid == schoolId);
+            return result;
         }
     }
 }

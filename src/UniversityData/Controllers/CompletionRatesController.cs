@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using UniversityData.Services.Interfaces;
 
 namespace UniversityData.Controllers
@@ -14,18 +15,18 @@ namespace UniversityData.Controllers
 
         // GET: api/completionrates
         [HttpGet]
-        public IActionResult GetAllCompletionRates()
+        public async Task<IActionResult> GetAllCompletionRatesAsync()
         {
-            var completionRatesResults = _completionRatesRepository.GetAllCompletionRates();
-            return Ok(completionRatesResults);            
+            var results = await _completionRatesRepository.GetAllCompletionRatesAsync();
+            return Ok(results);
         }
 
         // GET: api/completionsrates/{schoolid}
         [HttpGet("{schoolId}")]
-        public IActionResult GetSchoolCompletionRates(int schoolId)
+        public async Task<IActionResult> GetSchoolCompletionRatesAsync(int schoolId)
         {
-            var completionRateResult = _completionRatesRepository.GetSchoolCompletionRates(schoolId);
-            return Ok(completionRateResult);
+            var result = await _completionRatesRepository.GetSchoolCompletionRatesAsync(schoolId);
+            return Ok(result);
         }
     }
 }

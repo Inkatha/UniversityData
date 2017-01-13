@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UniversityData.Models;
 
 namespace UniversityData.Services.Interfaces
 {
     public interface IStandardizedTestAveragesRepository
     {
-        IEnumerable<StandardizedTestAverages> GetAllStandardizedTestAverages();
-        StandardizedTestAverages GetSchoolStandardizedTestAverages(int schoolId);
+        Task<IEnumerable<StandardizedTestAverages>> GetAllStandardizedTestAveragesAsync();
+        Task<StandardizedTestAverages> GetSchoolStandardizedTestAveragesAsync(int schoolId);
     }
 }

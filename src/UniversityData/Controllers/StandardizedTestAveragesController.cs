@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using UniversityData.Services.Interfaces;
 
@@ -14,19 +15,18 @@ namespace UniversityData.Controllers
 
         // GET: api/standardizedtestaverages
         [HttpGet]
-        public IActionResult GetAllStandardizedTestAverages()
+        public async Task<IActionResult> GetAllStandardizedTestAveragesAsync()
         {
-            // TODO: Figure out why this causes an error
-            var standardizedTestAveragesResults = _standardizedTestAveragesRepository.GetAllStandardizedTestAverages();
-            return Ok(standardizedTestAveragesResults);
+            var result = await _standardizedTestAveragesRepository.GetAllStandardizedTestAveragesAsync();
+            return Ok(result);
         }
 
         // GET: api/standardizedtestaverages/{schoolId}
         [HttpGet("{schoolId}")]
-        public IActionResult GetSchoolStandardizedTestAverages(int schoolId)
+        public async Task<IActionResult> GetSchoolStandardizedTestAveragesAsync(int schoolId)
         {
-            var standardizedTestAveragesResult = _standardizedTestAveragesRepository.GetSchoolStandardizedTestAverages(schoolId);
-            return Ok(standardizedTestAveragesResult);
+            var result = await _standardizedTestAveragesRepository.GetSchoolStandardizedTestAveragesAsync(schoolId);
+            return Ok(result);
         }
     }
 }
