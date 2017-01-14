@@ -19,8 +19,16 @@ namespace UniversityData.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllInformationAsync()
         {
-            var result = await _basicInfoRepository.GetAllBasicInformationAsync();
-            return Ok(result);
+            try 
+            {
+                var result = await _basicInfoRepository.GetAllBasicInformationAsync();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An exception occured:", ex)
+                return StatusCode(500, "An error occured");
+            }
         }
 
         // GET: api/basicinfo/{unitId}
@@ -39,7 +47,6 @@ namespace UniversityData.Controllers
                 {
                     return NotFound();
                 }
-
                 return Ok(result);
             }
             catch (Exception ex)
