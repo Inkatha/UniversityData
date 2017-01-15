@@ -42,14 +42,20 @@ namespace UniversityData.Controllers
             {
                 if (await _basicInfoRepository.SchoolExistsAsync(schoolId) == false)
                 {
+                    Console.WriteLine($"A school with the id: {schoolId} does not exist.");
                     return NotFound();
                 }
                 var result = await _completionRatesRepository.GetSchoolCompletionRatesAsync(schoolId);
+                if (result == null)
+                {
+                    Console.WriteLine($"Unable to get completion rates for id: {schoolId}");
+                    return NotFound();
+                }
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occured:", ex);
+                Console.WriteLine("an error occured: ", ex);
                 return StatusCode(500, "An error occured.");
             }
         }

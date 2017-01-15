@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using UniversityData.Services.Interfaces;
@@ -17,16 +18,37 @@ namespace UniversityData.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllDegreesAwardedAsync()
         {
-            var result = await _degreesAwardedRepository.GetAllDegreesAwardedAsync();
-            return Ok(result);
+            try 
+            {
+                var result = await _degreesAwardedRepository.GetAllDegreesAwardedAsync();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("an error occured: ", ex);
+                return StatusCode(500, "An error occured");
+            }
         }
 
         // GET: api/degreesawarded/{schoolId}
         [HttpGet("{schoolId}")]
         public async Task<IActionResult> GetSchoolDegreesAwardedAsync(int schoolId)
         {
-            var result = await _degreesAwardedRepository.GetSchoolDegreesAwardedAsync(schoolId);
-            return Ok(result);
+            try 
+            {
+                var result = await _degreesAwardedRepository.GetSchoolDegreesAwardedAsync(schoolId);
+                if (result == null)
+                {
+                    Console.WriteLine($"Unable to get degrees awarded for id: {schoolId}");
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("an error occured:  ", ex);  
+                return StatusCode(500, "An error occured:");              
+            }
         }
     }
 }

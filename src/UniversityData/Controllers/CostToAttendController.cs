@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using UniversityData.Services.Interfaces;
@@ -8,8 +9,12 @@ namespace UniversityData.Controllers
     public class CostToAttendController : Controller
     {
         private readonly ICostToAttendRepository _costToAttendRepository;
-        public CostToAttendController(ICostToAttendRepository costToAttendRepository)
+        private readonly IBasicInfoRepository _basicInfoRepository;
+        public CostToAttendController(
+            ICostToAttendRepository costToAttendRepository,
+            IBasicInfoRepository basicInfoRepository)
         {
+            _basicInfoRepository = basicInfoRepository;
             _costToAttendRepository = costToAttendRepository;
         }
 
@@ -17,16 +22,42 @@ namespace UniversityData.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllCostToAttendAsync()
         {
-            var results = await _costToAttendRepository.GetAllCostToAttendAsync();
-            return Ok(results);
+            try 
+            {
+                var results = await _costToAttendRepository.GetAllCostToAttendAsync();
+                return Ok(results);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("An error occured", ex);
+                return StatusCode(500, "An error occured");
+            }
         }
 
         // GET: api/costToAttend/{schoolId}
         [HttpGet("{schoolId}")]
         public async Task<IActionResult> GetSchoolCostToAttend(int schoolId)
         {
-            var result = await _costToAttendRepository.GetSchoolCostToAttendAsync(schoolId);
-            return Ok(result);
+            try
+            {
+                if (await _basicInfoRepository.SchoolExistsAsync(schoolId) == false)
+                {
+                    
+                    return NotFound();
+                }
+                var result = await _costToAttendRepository.GetSchoolCostToAttendAsync(schoolId);
+                if (result == null)
+                {
+                    Console.WriteLine($"Unable to get cost to attend for id: {schoolId}");
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("an error occured: ", ex);
+                return StatusCode(500, "An error occured");
+            }
         }
     }
 }

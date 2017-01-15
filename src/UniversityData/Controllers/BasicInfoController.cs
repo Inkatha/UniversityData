@@ -26,7 +26,7 @@ namespace UniversityData.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An exception occured:", ex)
+                Console.WriteLine("An exception occured:", ex);
                 return StatusCode(500, "An error occured");
             }
         }
@@ -39,12 +39,14 @@ namespace UniversityData.Controllers
             {
                 if (await _basicInfoRepository.SchoolExistsAsync(unitId) == false)
                 {
+                    Console.WriteLine($"A school with the id: {unitId} does not exist.");
                     return NotFound();
                 }
 
                 var result = await _basicInfoRepository.GetSchoolBasicInformationAsync(unitId);
                 if (result == null)
                 {
+                    Console.WriteLine($"Unable to get basic information for id: {unitId}");
                     return NotFound();
                 }
                 return Ok(result);
@@ -52,7 +54,7 @@ namespace UniversityData.Controllers
             catch (Exception ex)
             {
                 //TODO Add logging
-                Console.WriteLine("An error occured:" + ex.StackTrace);
+                Console.WriteLine("an error occured: " + ex.StackTrace);
                 return StatusCode(500, "A problem occured while handling your request.");
             }
         }
@@ -65,12 +67,14 @@ namespace UniversityData.Controllers
             {
                 if (await _basicInfoRepository.SchoolExistsAsync(unitId) == false)
                 {
+                    Console.WriteLine($"A school with the id: {unitId} does not exist.");
                     return NotFound();
                 }
 
                 var result = await _basicInfoRepository.GetSchoolNameAsync(unitId);
                 if (result == null)
                 {
+                    Console.WriteLine($"Unable to get basic information for id: {unitId}");
                     return NotFound();
                 }
 
@@ -79,7 +83,7 @@ namespace UniversityData.Controllers
             catch (Exception ex)
             {
                 //TODO Add logging
-                Console.WriteLine("An error occured:", ex.StackTrace);
+                Console.WriteLine("an error occured: ", ex.StackTrace);
                 return StatusCode(500, "A problem occured while handling your request.");
             }
         }
@@ -92,12 +96,14 @@ namespace UniversityData.Controllers
             {
                 if (await _basicInfoRepository.SchoolExistsAsync(unitId) == false)
                 {
+                    Console.WriteLine($"A school with the id: {unitId} does not exist.");
                     return NotFound();
                 }
 
                 var result = await _basicInfoRepository.GetSchoolUrlAsync(unitId);
                 if (result == null)
                 {
+                    Console.WriteLine($"Unable to get basic information for id: {unitId}");
                     return NotFound();
                 }
 
@@ -105,7 +111,7 @@ namespace UniversityData.Controllers
             }
             catch(Exception ex)
             {
-                Console.WriteLine("An error occured:", ex.StackTrace);
+                Console.WriteLine("an error occured: ", ex.StackTrace);
                 return StatusCode(500, "An error occured while handling your request");
             }
         }
