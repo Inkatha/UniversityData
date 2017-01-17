@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using UniversityData.Services;
 using UniversityData.Services.Interfaces;
 using System;
+using NLog.Extensions.Logging;
 
 namespace UniversityData
 {
@@ -51,6 +52,7 @@ namespace UniversityData
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddNLog();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 

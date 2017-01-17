@@ -2,17 +2,19 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using UniversityData.Services.Interfaces;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace UniversityData.Controllers
 {
     [Route("api/[controller]")]
     public class BasicInfoController : Controller
     {
-        public IBasicInfoRepository _basicInfoRepository;
-
-        public BasicInfoController(IBasicInfoRepository basicInfoRepository)
+        private readonly IBasicInfoRepository _basicInfoRepository;
+        private readonly ILogger<BasicInfoController> _logger;
+        public BasicInfoController(IBasicInfoRepository basicInfoRepository, ILogger<BasicInfoController> logger)
         {
             _basicInfoRepository = basicInfoRepository;
+            _logger = logger;
         }
 
         // GET: api/basicinfo
@@ -26,7 +28,7 @@ namespace UniversityData.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An exception occured:", ex);
+                _logger.LogCritical("An exception occured", ex);
                 return StatusCode(500, "An error occured");
             }
         }
@@ -39,22 +41,22 @@ namespace UniversityData.Controllers
             {
                 if (await _basicInfoRepository.SchoolExistsAsync(unitId) == false)
                 {
-                    Console.WriteLine($"A school with the id: {unitId} does not exist.");
+                    _logger.LogWarning($"A school with the id: {unitId} does not exist.");
                     return NotFound();
                 }
 
                 var result = await _basicInfoRepository.GetSchoolBasicInformationAsync(unitId);
                 if (result == null)
                 {
-                    Console.WriteLine($"Unable to get basic information for id: {unitId}");
+                    _logger.LogWarning($"Unable to get basic information for id: {unitId}");
                     return NotFound();
                 }
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                //TODO Add logging
-                Console.WriteLine("an error occured: " + ex.StackTrace);
+                Console.WriteLine("Logging using NLog");
+                _logger.LogCritical("an error occured: " + ex.StackTrace);
                 return StatusCode(500, "A problem occured while handling your request.");
             }
         }
@@ -67,14 +69,14 @@ namespace UniversityData.Controllers
             {
                 if (await _basicInfoRepository.SchoolExistsAsync(unitId) == false)
                 {
-                    Console.WriteLine($"A school with the id: {unitId} does not exist.");
+                    _logger.LogWarning($"A school with the id: {unitId} does not exist.");
                     return NotFound();
                 }
 
                 var result = await _basicInfoRepository.GetSchoolNameAsync(unitId);
                 if (result == null)
                 {
-                    Console.WriteLine($"Unable to get basic information for id: {unitId}");
+                    _logger.LogWarning($"Unable to get basic information for id: {unitId}");
                     return NotFound();
                 }
 
@@ -82,8 +84,7 @@ namespace UniversityData.Controllers
             }
             catch (Exception ex)
             {
-                //TODO Add logging
-                Console.WriteLine("an error occured: ", ex.StackTrace);
+                _logger.LogCritical("an error occured: ", ex.StackTrace);
                 return StatusCode(500, "A problem occured while handling your request.");
             }
         }
@@ -96,14 +97,14 @@ namespace UniversityData.Controllers
             {
                 if (await _basicInfoRepository.SchoolExistsAsync(unitId) == false)
                 {
-                    Console.WriteLine($"A school with the id: {unitId} does not exist.");
+                    _logger.LogWarning($"A school with the id: {unitId} does not exist.");
                     return NotFound();
                 }
 
                 var result = await _basicInfoRepository.GetSchoolUrlAsync(unitId);
                 if (result == null)
                 {
-                    Console.WriteLine($"Unable to get basic information for id: {unitId}");
+                    _logger.LogWarning($"Unable to get basic information for id: {unitId}.");
                     return NotFound();
                 }
 
@@ -111,7 +112,7 @@ namespace UniversityData.Controllers
             }
             catch(Exception ex)
             {
-                Console.WriteLine("an error occured: ", ex.StackTrace);
+                _logger.LogCritical("an error occured: ", ex.StackTrace);
                 return StatusCode(500, "An error occured while handling your request");
             }
         }
