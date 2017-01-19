@@ -1,6 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using UniversityData.Constants;
 using UniversityData.Services.Interfaces;
 
 namespace UniversityData.Controllers
@@ -9,9 +11,16 @@ namespace UniversityData.Controllers
     public class DegreesAwardedController : Controller
     {
         private readonly IDegreesAwardedRepository _degreesAwardedRepository;
-        public DegreesAwardedController(IDegreesAwardedRepository degreesAwardedRepository)
+        private readonly IBasicInfoRepository _basicInfoRepository;
+        private readonly ILogger<DegreesAwardedController> _logger; 
+        public DegreesAwardedController(
+            IDegreesAwardedRepository degreesAwardedRepository,
+            IBasicInfoRepository basicInfoRepository,
+            ILogger<DegreesAwardedController> logger)
         {
             _degreesAwardedRepository = degreesAwardedRepository;
+            _basicInfoRepository = basicInfoRepository;
+            _logger = logger;
         }
 
         // GET: api/degreesawarded
@@ -20,13 +29,18 @@ namespace UniversityData.Controllers
         {
             try 
             {
-                var result = await _degreesAwardedRepository.GetAllDegreesAwardedAsync();
-                return Ok(result);
+                var results = await _degreesAwardedRepository.GetAllDegreesAwardedAsync();
+                if (results == null)
+                {
+                    _logger.LogWarning($"Unable to get all degrees awarded.");
+                    return NotFound();
+                }
+                return Ok(results);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("an error occured: ", ex);
-                return StatusCode(500, "An error occured");
+                Console.WriteLine("an error occured while getting all degrees awarded ", ex.StackTrace);
+                return StatusCode(500, ErrorMessages.InternalServerError);
             }
         }
 
@@ -36,18 +50,23 @@ namespace UniversityData.Controllers
         {
             try 
             {
+                if (await _basicInfoRepository.SchoolExistsAsync(schoolId) == false) 
+                {
+                    _logger.LogWarning($"Unable to find school with {schoolId} id");
+                    return NotFound();
+                }
                 var result = await _degreesAwardedRepository.GetSchoolDegreesAwardedAsync(schoolId);
                 if (result == null)
                 {
-                    Console.WriteLine($"Unable to get degrees awarded for id: {schoolId}");
+                    _logger.LogWarning($"Unable to get degrees awarded for id: {schoolId}");
                     return NotFound();
                 }
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("an error occured:  ", ex);  
-                return StatusCode(500, "An error occured:");              
+                _logger.LogCritical($"while getting id:{schoolId} degrees awarded.", ex.StackTrace);
+                return StatusCode(500, ErrorMessages.InternalServerError);              
             }
         }
     }

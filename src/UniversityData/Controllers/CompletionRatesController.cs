@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using UniversityData.Services.Interfaces;
 using System;
 using Microsoft.Extensions.Logging;
+using UniversityData.Constants;
 
 namespace UniversityData.Controllers
 {
@@ -11,11 +12,11 @@ namespace UniversityData.Controllers
     {
         private readonly ICompletionRatesRepository _completionRatesRepository;
         private readonly IBasicInfoRepository _basicInfoRepository;
-        private readonly ILogger _logger;
+        private readonly ILogger<CompletionRatesController> _logger;
         public CompletionRatesController(
             ICompletionRatesRepository completionRatesRepository,
             IBasicInfoRepository basicInfoRepository,
-            ILogger logger)
+            ILogger<CompletionRatesController> logger)
         {
             _completionRatesRepository = completionRatesRepository;
             _basicInfoRepository = basicInfoRepository;
@@ -29,12 +30,17 @@ namespace UniversityData.Controllers
             try 
             {
                 var results = await _completionRatesRepository.GetAllCompletionRatesAsync();
+                if (results == null)
+                {
+                    _logger.LogWarning($"Unable to get all completion rates.");
+                    return NotFound();
+                }
                 return Ok(results);
             }
             catch (Exception ex)
             {
-                _logger.LogCritical("An error occured while handling your request:", ex);
-                return StatusCode(500, "An error occured");    
+                _logger.LogCritical("An error occured while getting all completion rates", ex.StackTrace);
+                return StatusCode(500, ErrorMessages.InternalServerError);    
             }
         }
 
@@ -59,8 +65,8 @@ namespace UniversityData.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogCritical("an error occured: ", ex);
-                return StatusCode(500, "An error occured.");
+                _logger.LogCritical($"an error occured while getting id:{schoolId} completion rates", ex.StackTrace);
+                return StatusCode(500, ErrorMessages.InternalServerError);
             }
         }
     }

@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using UniversityData.Constants;
 using UniversityData.Services.Interfaces;
 
 namespace UniversityData.Controllers
@@ -11,11 +12,11 @@ namespace UniversityData.Controllers
     {
         private readonly ICostToAttendRepository _costToAttendRepository;
         private readonly IBasicInfoRepository _basicInfoRepository;
-        private readonly ILogger _logger;
+        private readonly ILogger<CostToAttendController> _logger;
         public CostToAttendController(
             ICostToAttendRepository costToAttendRepository,
             IBasicInfoRepository basicInfoRepository,
-            ILogger logger)
+            ILogger<CostToAttendController> logger)
         {
             _basicInfoRepository = basicInfoRepository;
             _costToAttendRepository = costToAttendRepository;
@@ -29,12 +30,17 @@ namespace UniversityData.Controllers
             try 
             {
                 var results = await _costToAttendRepository.GetAllCostToAttendAsync();
+                if (results == null)
+                {
+                    _logger.LogWarning($"Unable to get all costs to attend.");
+                    return NotFound();
+                }
                 return Ok(results);
             }
             catch(Exception ex)
             {
-                _logger.LogCritical("An error occured", ex);
-                return StatusCode(500, "An error occured");
+                _logger.LogCritical("An error occured while getting all cost to attend data.", ex.StackTrace);
+                return StatusCode(500, ErrorMessages.InternalServerError);
             }
         }
 
@@ -59,8 +65,8 @@ namespace UniversityData.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogCritical("an error occured: ", ex);
-                return StatusCode(500, "An error occured");
+                _logger.LogCritical($"an error occured while getting id:{schoolId} cost to attend data.", ex.StackTrace);
+                return StatusCode(500, ErrorMessages.InternalServerError);
             }
         }
     }

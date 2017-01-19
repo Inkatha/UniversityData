@@ -3,6 +3,7 @@ using System;
 using UniversityData.Services.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using UniversityData.Constants;
 
 namespace UniversityData.Controllers
 {
@@ -23,13 +24,18 @@ namespace UniversityData.Controllers
         {
             try 
             {
-                var result = await _basicInfoRepository.GetAllBasicInformationAsync();
-                return Ok(result);
+                var results = await _basicInfoRepository.GetAllBasicInformationAsync();
+                if (results == null)
+                {
+                    _logger.LogWarning($"Unable to all basic information.");
+                    return NotFound();
+                }
+                return Ok(results);
             }
             catch (Exception ex)
             {
-                _logger.LogCritical("An exception occured", ex);
-                return StatusCode(500, "An error occured");
+                _logger.LogCritical("An exception occured while getting all basic information.", ex);
+                return StatusCode(500, ErrorMessages.InternalServerError);
             }
         }
 
@@ -48,15 +54,15 @@ namespace UniversityData.Controllers
                 var result = await _basicInfoRepository.GetSchoolBasicInformationAsync(unitId);
                 if (result == null)
                 {
-                    _logger.LogWarning($"Unable to get basic information for id: {unitId}");
+                    _logger.LogWarning($"Unable to get basic information for id: {unitId}.");
                     return NotFound();
                 }
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                _logger.LogCritical("an error occured: " + ex.StackTrace);
-                return StatusCode(500, "A problem occured while handling your request.");
+                _logger.LogCritical($"An error occured while getting {unitId} basic information." + ex.StackTrace);
+                return StatusCode(500, ErrorMessages.InternalServerError);
             }
         }
         
@@ -75,7 +81,7 @@ namespace UniversityData.Controllers
                 var result = await _basicInfoRepository.GetSchoolNameAsync(unitId);
                 if (result == null)
                 {
-                    _logger.LogWarning($"Unable to get basic information for id: {unitId}");
+                    _logger.LogWarning($"Unable to get basic information for id: {unitId}.");
                     return NotFound();
                 }
 
@@ -83,8 +89,8 @@ namespace UniversityData.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogCritical("an error occured: ", ex.StackTrace);
-                return StatusCode(500, "A problem occured while handling your request.");
+                _logger.LogCritical($"an error occured while getting id:{unitId} school name.", ex.StackTrace);
+                return StatusCode(500, ErrorMessages.InternalServerError);
             }
         }
 
@@ -111,8 +117,8 @@ namespace UniversityData.Controllers
             }
             catch(Exception ex)
             {
-                _logger.LogCritical("an error occured: ", ex.StackTrace);
-                return StatusCode(500, "An error occured while handling your request");
+                _logger.LogCritical($"an error occured while getting {unitId} school url.", ex.StackTrace);
+                return StatusCode(500, ErrorMessages.InternalServerError);
             }
         }
     }

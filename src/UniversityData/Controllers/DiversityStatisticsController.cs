@@ -1,5 +1,8 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using UniversityData.Constants;
 using UniversityData.Services.Interfaces;
 
 namespace UniversityData.Controllers
@@ -8,25 +11,63 @@ namespace UniversityData.Controllers
     public class DiversityStatisticsController : Controller
     {
         private readonly IDiversityStatisticsRepository _diversityStatisticsRepository;
-        public DiversityStatisticsController(IDiversityStatisticsRepository diversityStatisticsRepository)
+        private readonly IBasicInfoRepository _basicInfoRepository;
+        private readonly ILogger<DiversityStatisticsController> _logger;
+        public DiversityStatisticsController(
+            IDiversityStatisticsRepository diversityStatisticsRepository,
+            IBasicInfoRepository basicInfoRepository,
+            ILogger<DiversityStatisticsController> logger)
         {
             _diversityStatisticsRepository = diversityStatisticsRepository;
+            _basicInfoRepository = basicInfoRepository;
+            _logger = logger;
         }
 
         // GET: api/diversitystatitics
         [HttpGet]
         public async Task<IActionResult> GetAllDiversityStatistics()
         {
-            var result = await _diversityStatisticsRepository.GetAllDiversityStatisticsAsync();
-            return Ok(result);
+            try 
+            {
+                var results = await _diversityStatisticsRepository.GetAllDiversityStatisticsAsync();
+                if (results == null)
+                {
+                    _logger.LogWarning($"Unable to get all diversity statistics.");
+                    return NotFound();
+                }
+                return Ok(results);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical("An error occured while getting all diversity statistics: ", ex.StackTrace);
+                return StatusCode(500, ErrorMessages.InternalServerError);
+            }
         }
 
         // GET: api/diversitystatitics/{schoolId}
         [HttpGet("{schoolId}")]
         public async Task<IActionResult> GetSchoolDiverisityStatistics(int schoolId)
         {
-            var result = await _diversityStatisticsRepository.GetSchoolDiversityStatisticsAsync(schoolId);
-            return Ok(result);
+            try 
+            {
+                if (await _basicInfoRepository.SchoolExistsAsync(schoolId) == false)
+                {  
+                    _logger.LogWarning($"Unable to get id:{schoolId} diversity statistics.");
+                    return NotFound();
+                }
+                var result = await _diversityStatisticsRepository.GetSchoolDiversityStatisticsAsync(schoolId);
+                if (result == null)
+                {
+                    _logger.LogWarning($"Unable to get diversity statistics for id:{schoolId}.");
+                    return NotFound();
+                }
+                return Ok(result);    
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical($"An error occured while getting {schoolId} diversity statistics. ", ex.StackTrace);    
+                return StatusCode(500, ErrorMessages.InternalServerError);
+            }
         }
     }
 }
