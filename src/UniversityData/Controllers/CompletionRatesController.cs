@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using UniversityData.Services.Interfaces;
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace UniversityData.Controllers
 {
@@ -10,12 +11,15 @@ namespace UniversityData.Controllers
     {
         private readonly ICompletionRatesRepository _completionRatesRepository;
         private readonly IBasicInfoRepository _basicInfoRepository;
+        private readonly ILogger _logger;
         public CompletionRatesController(
             ICompletionRatesRepository completionRatesRepository,
-            IBasicInfoRepository basicInfoRepository)
+            IBasicInfoRepository basicInfoRepository,
+            ILogger logger)
         {
             _completionRatesRepository = completionRatesRepository;
             _basicInfoRepository = basicInfoRepository;
+            _logger = logger;
         }
 
         // GET: api/completionrates
@@ -29,7 +33,7 @@ namespace UniversityData.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occured while handling your request:", ex);
+                _logger.LogCritical("An error occured while handling your request:", ex);
                 return StatusCode(500, "An error occured");    
             }
         }
@@ -42,20 +46,20 @@ namespace UniversityData.Controllers
             {
                 if (await _basicInfoRepository.SchoolExistsAsync(schoolId) == false)
                 {
-                    Console.WriteLine($"A school with the id: {schoolId} does not exist.");
+                    _logger.LogWarning($"A school with the id: {schoolId} does not exist.");
                     return NotFound();
                 }
                 var result = await _completionRatesRepository.GetSchoolCompletionRatesAsync(schoolId);
                 if (result == null)
                 {
-                    Console.WriteLine($"Unable to get completion rates for id: {schoolId}");
+                    _logger.LogWarning($"Unable to get completion rates for id: {schoolId}");
                     return NotFound();
                 }
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("an error occured: ", ex);
+                _logger.LogCritical("an error occured: ", ex);
                 return StatusCode(500, "An error occured.");
             }
         }

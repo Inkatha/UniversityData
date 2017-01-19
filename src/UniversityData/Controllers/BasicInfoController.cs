@@ -55,7 +55,6 @@ namespace UniversityData.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Logging using NLog");
                 _logger.LogCritical("an error occured: " + ex.StackTrace);
                 return StatusCode(500, "A problem occured while handling your request.");
             }

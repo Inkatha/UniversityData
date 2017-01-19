@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using UniversityData.Services.Interfaces;
 
 namespace UniversityData.Controllers
@@ -10,12 +11,15 @@ namespace UniversityData.Controllers
     {
         private readonly ICostToAttendRepository _costToAttendRepository;
         private readonly IBasicInfoRepository _basicInfoRepository;
+        private readonly ILogger _logger;
         public CostToAttendController(
             ICostToAttendRepository costToAttendRepository,
-            IBasicInfoRepository basicInfoRepository)
+            IBasicInfoRepository basicInfoRepository,
+            ILogger logger)
         {
             _basicInfoRepository = basicInfoRepository;
             _costToAttendRepository = costToAttendRepository;
+            _logger = logger;
         }
 
         // GET: api/costtoattend
@@ -29,7 +33,7 @@ namespace UniversityData.Controllers
             }
             catch(Exception ex)
             {
-                Console.WriteLine("An error occured", ex);
+                _logger.LogCritical("An error occured", ex);
                 return StatusCode(500, "An error occured");
             }
         }
@@ -42,20 +46,20 @@ namespace UniversityData.Controllers
             {
                 if (await _basicInfoRepository.SchoolExistsAsync(schoolId) == false)
                 {
-                    
+                    _logger.LogWarning($"Unable to find a school with {schoolId}");
                     return NotFound();
                 }
                 var result = await _costToAttendRepository.GetSchoolCostToAttendAsync(schoolId);
                 if (result == null)
                 {
-                    Console.WriteLine($"Unable to get cost to attend for id: {schoolId}");
+                    _logger.LogWarning($"Unable to get cost to attend for id: {schoolId}");
                     return NotFound();
                 }
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("an error occured: ", ex);
+                _logger.LogCritical("an error occured: ", ex);
                 return StatusCode(500, "An error occured");
             }
         }
