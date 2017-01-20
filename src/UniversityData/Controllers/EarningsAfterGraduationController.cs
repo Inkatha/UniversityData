@@ -1,5 +1,8 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using UniversityData.Constants;
 using UniversityData.Services.Interfaces;
 
 namespace UniversityData.Controllers
@@ -8,17 +11,38 @@ namespace UniversityData.Controllers
     public class EarningsAfterGraduationController : Controller
     {
         private readonly IEarningsAfterGraduationRepository _earningsAfterGraduationRepository;
-        public EarningsAfterGraduationController(IEarningsAfterGraduationRepository earningsAfterGraduationRepository)
+        private readonly IBasicInfoRepository _basicInfoRepository;
+        private readonly ILogger<EarningsAfterGraduationController> _logger;
+        public EarningsAfterGraduationController(
+            IEarningsAfterGraduationRepository earningsAfterGraduationRepository,
+            IBasicInfoRepository basicInfoRepository,
+            ILogger<EarningsAfterGraduationController> logger)
         {
             _earningsAfterGraduationRepository = earningsAfterGraduationRepository;
+            _basicInfoRepository = basicInfoRepository;
+            _logger = logger;
         }
 
         // GET: api/earningsaftergraduation
         [HttpGet]
         public async Task<IActionResult> GetAllEarningsAfterGraduationAsync()
         {
-            var result = await _earningsAfterGraduationRepository.GetAllEarningsAfterGraduationAsync();
-            return Ok(result); 
+            try
+            {
+                var results = await _earningsAfterGraduationRepository.GetAllEarningsAfterGraduationAsync();
+                if (results == null)
+                {
+                    _logger.LogWarning("Unable to get all earnings after graduation");
+                    NotFound();
+                }
+                return Ok(results); 
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical("An error occured while getting all earnings after graduation.", ex.StackTrace);
+                return StatusCode(500, ErrorMessages.InternalServerError);
+            }
+           
         }
 
         // GET: api/earningsaftergraduation/{schoolid}
