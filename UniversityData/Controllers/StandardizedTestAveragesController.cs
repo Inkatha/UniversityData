@@ -15,14 +15,18 @@ namespace UniversityData.Controllers
         private readonly IStandardizedTestAveragesRepository _standardizedTestAveragesRepository;
         private readonly IBasicInfoRepository _basicInfoRepository;
         private readonly ILogger<StandardizedTestAveragesController> _logger;
+        private readonly IMapper _mapper;
+
         public StandardizedTestAveragesController(
             IStandardizedTestAveragesRepository standardizedTestAveragesRepository,
             IBasicInfoRepository basicInfoRepository,
-            ILogger<StandardizedTestAveragesController> logger)
+            ILogger<StandardizedTestAveragesController> logger,
+            IMapper mapper)
         {
             _standardizedTestAveragesRepository = standardizedTestAveragesRepository;
             _basicInfoRepository = basicInfoRepository;
             _logger = logger;
+            _mapper = mapper;
         }
 
         // GET: api/standardizedtestaverages
@@ -78,7 +82,7 @@ namespace UniversityData.Controllers
                     _logger.LogWarning($"Unable to get id:{schoolId} standardized test averages.");
                     return NotFound();
                 }
-                var satTestAverages = Mapper.Map<SatTestAverages>(result);
+                var satTestAverages = _mapper.Map<SatTestAverages>(result);
                 return Ok(satTestAverages);
             }
             catch (Exception ex)
@@ -99,7 +103,7 @@ namespace UniversityData.Controllers
                     _logger.LogWarning($"Unable tog et id:{schoolId} standardized test averages.");
                     return NotFound();
                 }
-                var actTestAverages = Mapper.Map<ActTestAverages>(result);
+                var actTestAverages = _mapper.Map<ActTestAverages>(result);
                 return Ok(actTestAverages);
             }
             catch(Exception ex)
