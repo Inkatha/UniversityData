@@ -49,8 +49,27 @@ namespace UniversityData.Controllers
         [HttpGet("{schoolId}")]
         public async Task<IActionResult> GetSchoolEarningsAfterGraduationAsync(int schoolId)
         {
-            var result = await _earningsAfterGraduationRepository.GetSchoolEarningsAfterGraduationAsync(schoolId);
-            return Ok(result);
+            try 
+            {
+                if (await _basicInfoRepository.SchoolExistsAsync(schoolId) == false) 
+                {
+                    _logger.LogWarning($"Unable to find school with {schoolId} id");
+                    return NotFound();
+                }
+                
+                var result = await _earningsAfterGraduationRepository.GetSchoolEarningsAfterGraduationAsync(schoolId);
+                if (result == null)
+                {
+                    _logger.LogWarning($"Unable to get earnings after graduation for id:{schoolId}");
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical("An error occured while getting a school's earnings after graduation.", ex.StackTrace);
+                return StatusCode(500, ErrorMessages.InternalServerError);
+            }
         }
     }
 }

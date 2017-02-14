@@ -52,9 +52,10 @@ namespace UniversityData.Controllers
             {
                 if (await _basicInfoRepository.SchoolExistsAsync(schoolId) == false)
                 {
-                    _logger.LogWarning($"a school with id:{schoolId} does not exist.");
+                    _logger.LogWarning($"School with id:{schoolId} does not exist.");
                     return NotFound();
                 }
+                
                 var result = await _financialAidProvidedRepository.GetSchoolFinancialAidProvidedAsync(schoolId);
                 if (result == null)
                 {

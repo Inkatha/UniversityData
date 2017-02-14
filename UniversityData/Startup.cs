@@ -10,6 +10,8 @@ using UniversityData.Services;
 using UniversityData.Services.Interfaces;
 using System;
 using NLog.Extensions.Logging;
+using AutoMapper;
+using UniversityData.Controllers;
 
 namespace UniversityData
 {
