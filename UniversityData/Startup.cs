@@ -4,10 +4,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using UniversityData.BindingModels;
+using UniversityData.Models;
 using UniversityData.Services;
 using UniversityData.Services.Interfaces;
 using System;
 using NLog.Extensions.Logging;
+using AutoMapper;
+using UniversityData.Controllers;
 
 namespace UniversityData
 {
@@ -30,7 +34,6 @@ namespace UniversityData
         {
             // Add framework services.
             services.AddMvc();
-
             var connectionString = GetConnectionString();
             services.AddDbContext<UniversityContext>(
                 opts => opts.UseNpgsql(connectionString)
@@ -55,6 +58,12 @@ namespace UniversityData
             loggerFactory.AddNLog();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            AutoMapper.Mapper.Initialize(config =>
+            {
+                config.CreateMap<StandardizedTestAverages, SatTestAverages>();
+                config.CreateMap<StandardizedTestAverages, ActTestAverages>();
+            });
 
             app.UseMvc();
         }
