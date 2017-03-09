@@ -1,7 +1,11 @@
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
+using UniversityData;
 using UniversityData.Models;
 using UniversityData.Services.Interfaces;
 
@@ -43,6 +47,23 @@ namespace UniversityData.Services
         public async Task<bool> SchoolExistsAsync(int unitId)
         {
             var result = await _context.basicinfo.AnyAsync(c => c.unitid == unitId);
+            return result;
+        }
+
+        public async Task<DbDataReader> SchoolSearchAsync(string searchTerm) 
+        {
+            DatabaseConnection connString = new DatabaseConnection();
+            NpgsqlConnectionStringBuilder npgsqlConnectionString = new NpgsqlConnectionStringBuilder(connString.GetConnectionString());
+            NpgsqlConnection connection = new NpgsqlConnection(npgsqlConnectionString);
+            connection.Open();
+
+            NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM \"public\".\"basicinfo\" WHERE instm LIKE @school_name LIMIT 25", connection);
+            cmd.Parameters.AddWithValue("@school_name", "%" + searchTerm + "%");
+
+            var result = await cmd.ExecuteReaderAsync();
+
+            connection.Close();
+
             return result;
         }
     }

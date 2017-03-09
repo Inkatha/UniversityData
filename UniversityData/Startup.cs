@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,10 +9,7 @@ using UniversityData.BindingModels;
 using UniversityData.Models;
 using UniversityData.Services;
 using UniversityData.Services.Interfaces;
-using System;
 using NLog.Extensions.Logging;
-using AutoMapper;
-using UniversityData.Controllers;
 
 namespace UniversityData
 {
@@ -32,9 +30,10 @@ namespace UniversityData
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            DatabaseConnection connection = new DatabaseConnection();
             // Add framework services.
             services.AddMvc();
-            var connectionString = GetConnectionString();
+            var connectionString = connection.GetConnectionString();
             services.AddDbContext<UniversityContext>(
                 opts => opts.UseNpgsql(connectionString)
             );
@@ -66,34 +65,6 @@ namespace UniversityData
             });
 
             app.UseMvc();
-        }
-
-        public string GetConnectionString()
-        {
-            try {
-                var uriString = Environment.GetEnvironmentVariable("ELEPHANT_UNIVERSITY_URL") ?? 
-                            Configuration["DbContextSettings:ConnectionString"];
-            
-                // No need to parse string if ElephantSQL url is not available.
-                if (uriString == Configuration["DbContextSettings:ConnectionString"])
-                {
-                    return uriString;
-                }
-
-                var uri = new Uri(uriString);
-                var db = uri.AbsolutePath.Trim('/');
-                var user = uri.UserInfo.Split(':')[0];
-                var passwd = uri.UserInfo.Split(':')[1];
-                var port = uri.Port > 0 ? uri.Port : 5432;
-                var connStr = string.Format("Server={0};Database={1};User Id={2};Password={3};Port={4}", uri.Host, db, user, passwd, port);
-
-                return connStr;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An Error Occured", ex);
-                return null;
-            }
         }
     }
 }
