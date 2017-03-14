@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Npgsql;
-using UniversityData;
 using UniversityData.Models;
 using UniversityData.Services.Interfaces;
 
@@ -50,21 +49,34 @@ namespace UniversityData.Services
             return result;
         }
 
-        public async Task<DbDataReader> SchoolSearchAsync(string searchTerm) 
+        public async Task<string> SchoolSearchAsync(string searchTerm) 
         {
             DatabaseConnection connString = new DatabaseConnection();
             NpgsqlConnectionStringBuilder npgsqlConnectionString = new NpgsqlConnectionStringBuilder(connString.GetConnectionString());
             NpgsqlConnection connection = new NpgsqlConnection(npgsqlConnectionString);
             connection.Open();
 
-            NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM \"public\".\"basicinfo\" WHERE instm LIKE @school_name LIMIT 25", connection);
-            cmd.Parameters.AddWithValue("@school_name", "%" + searchTerm + "%");
+            string unitId = "";
+            string institutionName = "";
+            var institutions = new Dictionary<string, string>();
 
-            var result = await cmd.ExecuteReaderAsync();
+            NpgsqlCommand cmd = new NpgsqlCommand("SELECT unitid, instnm FROM \"public\".\"basicinfo\" WHERE LOWER(instnm) LIKE LOWER(@school_name) LIMIT 10", connection);
+            cmd.Parameters.AddWithValue("@school_name", "%" + searchTerm + "%");
+            
+            using (var reader = await cmd.ExecuteReaderAsync()) 
+            {
+                while (reader.Read())
+                {
+                    unitId = reader.GetString(reader.GetOrdinal("unitid"));
+                    institutionName = reader.GetString(reader.GetOrdinal("instnm"));
+
+                    institutions.Add(unitId, institutionName);
+                }
+            }
 
             connection.Close();
-
-            return result;
+            
+            return JsonConvert.SerializeObject(institutions);
         }
     }
 }

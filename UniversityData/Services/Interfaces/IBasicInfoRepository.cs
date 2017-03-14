@@ -12,7 +12,6 @@ namespace UniversityData.Services.Interfaces
         Task<string> GetSchoolNameAsync(int unitId);
         Task<string> GetSchoolUrlAsync(int unitId);
         Task<bool> SchoolExistsAsync(int unitId);
-
-        Task<DbDataReader> SchoolSearchAsync(string searchTerm);
+        Task<string> SchoolSearchAsync(string searchTerm);
     }
 }

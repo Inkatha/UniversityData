@@ -121,5 +121,23 @@ namespace UniversityData.Controllers
                 return StatusCode(500, ErrorMessages.InternalServerError);
             }
         }
+
+        [HttpGet("search/{searchTerm}")]
+        public async Task<IActionResult> SchoolSearch(string searchTerm) {
+            try 
+            {
+                var result = await _basicInfoRepository.SchoolSearchAsync(searchTerm);
+                if (result == null) {
+                    _logger.LogWarning($"Unable to get search for id: {searchTerm}.");
+                    return NotFound();
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex) {
+                _logger.LogCritical($"an error occured while getting searching {searchTerm}", ex.StackTrace);
+                return StatusCode(500, ErrorMessages.InternalServerError);
+            }
+        }
     }
 }
