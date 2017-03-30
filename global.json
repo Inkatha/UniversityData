@@ -1,6 +1,6 @@
 {
     "projects": [
-        "UniversityData",
+        "src",
         "UniversityData.Tests"
     ]
 }
