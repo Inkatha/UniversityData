@@ -69,5 +69,47 @@ namespace UniversityData.Controllers
                 return StatusCode(500, ErrorMessages.InternalServerError);
             }
         }
+
+        // GET: api/costToAttend/{schoolid}/greaterThan
+        [HttpGet("{schoolId}/greaterThan/{cost}")]
+        public async Task<IActionResult> GetCostToAttendGreaterThan(int schoolId, int cost)
+        {
+            try
+            {
+
+            } 
+            catch (Exception ex) 
+            {
+
+            }
+        }
+
+        // GET: api/costToAttend/{schoolid}/lessThan
+        [HttpGet("{schoolId/lessThan/{cost}")]
+        public async Task<IActionResult> GetCostToAttendLessThan(int schoolId, int cost)
+        {
+            try
+            {
+
+            } 
+            catch (Exception ex) 
+            {
+
+            }
+        }
+
+        // GET: api/costToAttend/{schoolid}/between
+        [HttpGet("{schoolId/between/{cost}")]
+        public async Task<IActionResult> GetCostToAttendBetween(int schoolId, int cost)
+        {
+            try
+            {
+
+            } 
+            catch (Exception ex) 
+            {
+
+            }
+        }
     }
 }
