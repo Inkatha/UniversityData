@@ -76,11 +76,11 @@ namespace UniversityData.Controllers
         {
             try
             {
-
+                return Ok();
             } 
             catch (Exception ex) 
             {
-
+                return StatusCode(500, ErrorMessages.InternalServerError);
             }
         }
 
@@ -88,13 +88,13 @@ namespace UniversityData.Controllers
         [HttpGet("{schoolId/lessThan/{cost}")]
         public async Task<IActionResult> GetCostToAttendLessThan(int schoolId, int cost)
         {
-            try
+           try
             {
-
+                return Ok();
             } 
             catch (Exception ex) 
             {
-
+                return StatusCode(500, ErrorMessages.InternalServerError);
             }
         }
 
@@ -102,13 +102,13 @@ namespace UniversityData.Controllers
         [HttpGet("{schoolId/between/{cost}")]
         public async Task<IActionResult> GetCostToAttendBetween(int schoolId, int cost)
         {
-            try
+           try
             {
-
+                return Ok();
             } 
             catch (Exception ex) 
             {
-
+                return StatusCode(500, ErrorMessages.InternalServerError);
             }
         }
     }
