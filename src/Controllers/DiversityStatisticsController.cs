@@ -50,11 +50,6 @@ namespace UniversityData.Controllers
         {
             try 
             {
-                if (await _basicInfoRepository.SchoolExistsAsync(schoolId) == false)
-                {  
-                    _logger.LogWarning($"Unable to get id:{schoolId} diversity statistics.");
-                    return NotFound();
-                }
                 var result = await _diversityStatisticsRepository.GetSchoolDiversityStatisticsAsync(schoolId);
                 if (result == null)
                 {

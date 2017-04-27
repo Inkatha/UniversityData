@@ -50,11 +50,6 @@ namespace UniversityData.Controllers
         {
             try
             {
-                if (await _basicInfoRepository.SchoolExistsAsync(schoolId) == false)
-                {
-                    _logger.LogWarning($"Unable to find a school with {schoolId}");
-                    return NotFound();
-                }
                 var result = await _costToAttendRepository.GetSchoolCostToAttendAsync(schoolId);
                 if (result == null)
                 {
@@ -85,7 +80,7 @@ namespace UniversityData.Controllers
         }
 
         // GET: api/costToAttend/{schoolid}/lessThan
-        [HttpGet("{schoolId/lessThan/{cost}")]
+        [HttpGet("{schoolId}/lessThan/{cost}")]
         public async Task<IActionResult> GetCostToAttendLessThan(int schoolId, int cost)
         {
            try
@@ -99,7 +94,7 @@ namespace UniversityData.Controllers
         }
 
         // GET: api/costToAttend/{schoolid}/between
-        [HttpGet("{schoolId/between/{cost}")]
+        [HttpGet("{schoolId}/between/{cost}")]
         public async Task<IActionResult> GetCostToAttendBetween(int schoolId, int cost)
         {
            try

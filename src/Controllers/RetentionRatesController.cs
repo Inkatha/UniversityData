@@ -50,12 +50,6 @@ namespace UniversityData.Controllers
         {
             try 
             {
-                if (await _basicInfoRepository.SchoolExistsAsync(schoolId) == false) 
-                {
-                    _logger.LogWarning($"Unable to find school with {schoolId} id");
-                    return NotFound();
-                }
-                
                 var result = await _retentionRatesRepository.GetSchoolRetentionRatesAsync(schoolId);
                 if (result == null)
                 {

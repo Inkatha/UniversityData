@@ -45,12 +45,6 @@ namespace UniversityData.Controllers
         {
             try 
             {
-                if (await _basicInfoRepository.SchoolExistsAsync(unitId) == false)
-                {
-                    _logger.LogWarning($"A school with the id: {unitId} does not exist.");
-                    return NotFound();
-                }
-
                 var result = await _basicInfoRepository.GetSchoolBasicInformationAsync(unitId);
                 if (result == null)
                 {
@@ -72,12 +66,6 @@ namespace UniversityData.Controllers
         {
             try 
             {
-                if (await _basicInfoRepository.SchoolExistsAsync(unitId) == false)
-                {
-                    _logger.LogWarning($"A school with the id: {unitId} does not exist.");
-                    return NotFound();
-                }
-
                 var result = await _basicInfoRepository.GetSchoolNameAsync(unitId);
                 if (result == null)
                 {
@@ -100,12 +88,6 @@ namespace UniversityData.Controllers
         {
             try 
             {
-                if (await _basicInfoRepository.SchoolExistsAsync(unitId) == false)
-                {
-                    _logger.LogWarning($"A school with the id: {unitId} does not exist.");
-                    return NotFound();
-                }
-
                 var result = await _basicInfoRepository.GetSchoolUrlAsync(unitId);
                 if (result == null)
                 {
