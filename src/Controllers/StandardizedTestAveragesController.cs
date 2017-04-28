@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using UniversityData.BindingModels;
+using UniversityData.BindingModels.StandardizedTesting;
 using UniversityData.Constants;
 using UniversityData.Services.Interfaces;
 

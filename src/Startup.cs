@@ -5,7 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using UniversityData.BindingModels;
+using UniversityData.BindingModels.CostToAttend;
+using UniversityData.BindingModels.StandardizedTesting;
 using UniversityData.Models;
 using UniversityData.Services;
 using UniversityData.Services.Interfaces;
@@ -62,6 +63,8 @@ namespace UniversityData
             {
                 config.CreateMap<StandardizedTestAverages, SatTestAverages>();
                 config.CreateMap<StandardizedTestAverages, ActTestAverages>();
+                config.CreateMap<CostToAttend, CostToAttendPrivate>();
+                config.CreateMap<CostToAttend, CostToAttendPublic>();
             });
 
             app.UseMvc();

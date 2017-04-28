@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using UniversityData.BindingModels.CostToAttend;
 using UniversityData.Constants;
 using UniversityData.Services.Interfaces;
 
@@ -65,44 +68,46 @@ namespace UniversityData.Controllers
             }
         }
 
-        // GET: api/costToAttend/{schoolid}/greaterThan
-        [HttpGet("{schoolId}/greaterThan/{cost}")]
-        public async Task<IActionResult> GetCostToAttendGreaterThan(int schoolId, int cost)
+        // GET: api/costToAttend/private
+        [HttpGet("private")]
+        public async Task<IActionResult> GetCostToAttendPrivateSchoolByIncome(int familyIncome)
         {
             try
             {
-                return Ok();
+                var result = await _costToAttendRepository.GetSchoolCostOfPrivateSchoolByIncome(familyIncome);
+                if (result == null)
+                {
+                    _logger.LogWarning($"Unable to get cost to attend a private school for this income.");
+                    return NotFound();
+                }
+                var privateSchoolResults = Mapper.Map<IEnumerable<CostToAttendPrivate>>(result);
+                return Ok(privateSchoolResults);
             } 
             catch (Exception ex) 
             {
+                _logger.LogCritical($"An error occured while getting cost to attend a private school with income: {familyIncome}", ex.StackTrace);
                 return StatusCode(500, ErrorMessages.InternalServerError);
             }
         }
 
-        // GET: api/costToAttend/{schoolid}/lessThan
-        [HttpGet("{schoolId}/lessThan/{cost}")]
-        public async Task<IActionResult> GetCostToAttendLessThan(int schoolId, int cost)
+        // GET: api/costToAttend/public
+        [HttpGet("public")]
+        public async Task<IActionResult> GetCostToAttendPublicSchoolByIncome(int familyIncome)
         {
-           try
+            try
             {
-                return Ok();
-            } 
-            catch (Exception ex) 
-            {
-                return StatusCode(500, ErrorMessages.InternalServerError);
+                var result = await _costToAttendRepository.GetSchoolCostOfPublicSchoolByIncome(familyIncome);
+                if (result == null)
+                {
+                    _logger.LogWarning($"Unable to get cost to attend a public school for income: {familyIncome}.");
+                    return NotFound();
+                }
+                var publicSchoolResults = Mapper.Map<IEnumerable<CostToAttendPublic>>(result);
+                return Ok(publicSchoolResults);
             }
-        }
-
-        // GET: api/costToAttend/{schoolid}/between
-        [HttpGet("{schoolId}/between/{cost}")]
-        public async Task<IActionResult> GetCostToAttendBetween(int schoolId, int cost)
-        {
-           try
-            {
-                return Ok();
-            } 
             catch (Exception ex) 
             {
+                _logger.LogCritical($"An error occured while getting cost to attend a public school with income: {familyIncome}", ex.StackTrace);
                 return StatusCode(500, ErrorMessages.InternalServerError);
             }
         }

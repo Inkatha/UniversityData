@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace UniversityData.BindingModels
+namespace UniversityData.BindingModels.StandardizedTesting
 {
     public class SatTestAverages
     {
