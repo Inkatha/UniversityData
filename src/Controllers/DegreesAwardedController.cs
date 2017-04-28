@@ -11,15 +11,12 @@ namespace UniversityData.Controllers
     public class DegreesAwardedController : Controller
     {
         private readonly IDegreesAwardedRepository _degreesAwardedRepository;
-        private readonly IBasicInfoRepository _basicInfoRepository;
         private readonly ILogger<DegreesAwardedController> _logger; 
         public DegreesAwardedController(
             IDegreesAwardedRepository degreesAwardedRepository,
-            IBasicInfoRepository basicInfoRepository,
             ILogger<DegreesAwardedController> logger)
         {
             _degreesAwardedRepository = degreesAwardedRepository;
-            _basicInfoRepository = basicInfoRepository;
             _logger = logger;
         }
 

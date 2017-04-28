@@ -11,15 +11,12 @@ namespace UniversityData.Controllers
     public class FinancialAidProvidedController : Controller
     {
         private readonly IFinancialAidProvidedRepository _financialAidProvidedRepository;
-        private readonly IBasicInfoRepository _basicInfoRepository;
         private readonly ILogger<FinancialAidProvidedController> _logger;
         public FinancialAidProvidedController(
             IFinancialAidProvidedRepository financialAidProvidedRepository,
-            IBasicInfoRepository basicInfoRepository,
             ILogger<FinancialAidProvidedController> logger)
         {
             _financialAidProvidedRepository = financialAidProvidedRepository;
-            _basicInfoRepository = basicInfoRepository;
             _logger = logger;
         }
 

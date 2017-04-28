@@ -13,16 +13,13 @@ namespace UniversityData.Controllers
     public class StandardizedTestAveragesController : Controller
     {
         private readonly IStandardizedTestAveragesRepository _standardizedTestAveragesRepository;
-        private readonly IBasicInfoRepository _basicInfoRepository;
         private readonly ILogger<StandardizedTestAveragesController> _logger;
 
         public StandardizedTestAveragesController(
             IStandardizedTestAveragesRepository standardizedTestAveragesRepository,
-            IBasicInfoRepository basicInfoRepository,
             ILogger<StandardizedTestAveragesController> logger)
         {
             _standardizedTestAveragesRepository = standardizedTestAveragesRepository;
-            _basicInfoRepository = basicInfoRepository;
             _logger = logger;
         }
 

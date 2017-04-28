@@ -11,15 +11,12 @@ namespace UniversityData.Controllers
     public class CompletionRatesController : Controller
     {
         private readonly ICompletionRatesRepository _completionRatesRepository;
-        private readonly IBasicInfoRepository _basicInfoRepository;
         private readonly ILogger<CompletionRatesController> _logger;
         public CompletionRatesController(
             ICompletionRatesRepository completionRatesRepository,
-            IBasicInfoRepository basicInfoRepository,
             ILogger<CompletionRatesController> logger)
         {
             _completionRatesRepository = completionRatesRepository;
-            _basicInfoRepository = basicInfoRepository;
             _logger = logger;
         }
 

@@ -11,15 +11,12 @@ namespace UniversityData.Controllers
     public class StudentLoanDebtsController : Controller
     {
         private readonly IStudentLoanDebtsRepository _studentLoanDebtsRepository;
-        private readonly IBasicInfoRepository _basicInfoRepository;
         private readonly ILogger<StudentLoanDebtsController> _logger;
         public StudentLoanDebtsController(
             IStudentLoanDebtsRepository studentLoanDebtsRepository,
-            IBasicInfoRepository basicInfoRepository,
             ILogger<StudentLoanDebtsController> logger)
         {
             _studentLoanDebtsRepository = studentLoanDebtsRepository;
-            _basicInfoRepository = basicInfoRepository;
             _logger = logger;
         }
 

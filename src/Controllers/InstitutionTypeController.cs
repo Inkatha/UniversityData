@@ -11,15 +11,12 @@ namespace UniversityData.Controllers
     public class InstitutionTypeController : Controller
     {
         private readonly IInstitutionTypeRepository _institutionTypeRepository;
-        private readonly IBasicInfoRepository _basicInfoRepository;
         private readonly ILogger<InstitutionTypeController> _logger;
         public InstitutionTypeController(
             IInstitutionTypeRepository institutionTypeRepository,
-            IBasicInfoRepository basicInfoRepository,
             ILogger<InstitutionTypeController> logger)
         {
             _institutionTypeRepository = institutionTypeRepository;
-            _basicInfoRepository = basicInfoRepository;
             _logger = logger;
         }
 

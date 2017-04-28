@@ -11,15 +11,12 @@ namespace UniversityData.Controllers
     public class RetentionRatesController : Controller
     {
         private readonly IRetentionRatesRepository _retentionRatesRepository;
-        private readonly IBasicInfoRepository _basicInfoRepository;
         private readonly ILogger<RetentionRatesController> _logger;
         public RetentionRatesController(
             IRetentionRatesRepository retentionRatesRepository,
-            IBasicInfoRepository basicInfoRepository,
             ILogger<RetentionRatesController> logger)
         {  
             _retentionRatesRepository = retentionRatesRepository;
-            _basicInfoRepository = basicInfoRepository;
             _logger = logger;
         }
 

@@ -11,15 +11,12 @@ namespace UniversityData.Controllers
     public class EarningsAfterGraduationController : Controller
     {
         private readonly IEarningsAfterGraduationRepository _earningsAfterGraduationRepository;
-        private readonly IBasicInfoRepository _basicInfoRepository;
         private readonly ILogger<EarningsAfterGraduationController> _logger;
         public EarningsAfterGraduationController(
             IEarningsAfterGraduationRepository earningsAfterGraduationRepository,
-            IBasicInfoRepository basicInfoRepository,
             ILogger<EarningsAfterGraduationController> logger)
         {
             _earningsAfterGraduationRepository = earningsAfterGraduationRepository;
-            _basicInfoRepository = basicInfoRepository;
             _logger = logger;
         }
 

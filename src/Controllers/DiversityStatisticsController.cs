@@ -11,15 +11,12 @@ namespace UniversityData.Controllers
     public class DiversityStatisticsController : Controller
     {
         private readonly IDiversityStatisticsRepository _diversityStatisticsRepository;
-        private readonly IBasicInfoRepository _basicInfoRepository;
         private readonly ILogger<DiversityStatisticsController> _logger;
         public DiversityStatisticsController(
             IDiversityStatisticsRepository diversityStatisticsRepository,
-            IBasicInfoRepository basicInfoRepository,
             ILogger<DiversityStatisticsController> logger)
         {
             _diversityStatisticsRepository = diversityStatisticsRepository;
-            _basicInfoRepository = basicInfoRepository;
             _logger = logger;
         }
 

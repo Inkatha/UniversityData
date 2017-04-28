@@ -14,14 +14,11 @@ namespace UniversityData.Controllers
     public class CostToAttendController : Controller
     {
         private readonly ICostToAttendRepository _costToAttendRepository;
-        private readonly IBasicInfoRepository _basicInfoRepository;
         private readonly ILogger<CostToAttendController> _logger;
         public CostToAttendController(
             ICostToAttendRepository costToAttendRepository,
-            IBasicInfoRepository basicInfoRepository,
             ILogger<CostToAttendController> logger)
         {
-            _basicInfoRepository = basicInfoRepository;
             _costToAttendRepository = costToAttendRepository;
             _logger = logger;
         }
