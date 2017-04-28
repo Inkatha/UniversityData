@@ -7,7 +7,7 @@
         {
             "taskName": "build",
             "args": [
-                "${workspaceRoot}\\UniversityData\\project.json"
+                "${workspaceRoot}/src/src.csproj"
             ],
             "isBuildCommand": true,
             "problemMatcher": "$msCompile"
