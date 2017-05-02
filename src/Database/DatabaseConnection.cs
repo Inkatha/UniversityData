@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 
-namespace UniversityData.Services
+namespace UniversityData.Database
 {
     public class DatabaseConnection
     {

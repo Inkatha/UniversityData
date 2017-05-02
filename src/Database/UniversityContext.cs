@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using UniversityData.Models;
 
-namespace UniversityData.Services
+namespace UniversityData.Database
 {
     public class UniversityContext : DbContext
     {

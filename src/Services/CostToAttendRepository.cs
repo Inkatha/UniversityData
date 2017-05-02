@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using UniversityData.BindingModels.CostToAttend;
 using UniversityData.Models;
+using UniversityData.Database;
 using UniversityData.Services.Interfaces;
 
 namespace UniversityData.Services

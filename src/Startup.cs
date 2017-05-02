@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using UniversityData.BindingModels.CostToAttend;
 using UniversityData.BindingModels.StandardizedTesting;
 using UniversityData.Models;
+using UniversityData.Database;
 using UniversityData.Services;
 using UniversityData.Services.Interfaces;
 using NLog.Extensions.Logging;
