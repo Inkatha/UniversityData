@@ -41,7 +41,7 @@ namespace UniversityData.Controllers
 
         // GET: api/basicinfo/{unitId}
         [HttpGet("{unitId}")]
-        public async Task<IActionResult> GetSchoolInformation(int unitId)
+        public async Task<IActionResult> GetSchoolInformationAsync(int unitId)
         {
             try 
             {

@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceRoot}/src/bin/Debug/netcoreapp1.0.3/src.dll",
+            "program": "${workspaceRoot}/src/UniversityData/bin/Debug/netcoreapp1.0.3/UniversityData.dll",
             "args": [],
-            "cwd": "${workspaceRoot}/src",
+            "cwd": "${workspaceRoot}/src/UniversityData",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "launchBrowser": {
