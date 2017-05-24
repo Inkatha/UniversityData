@@ -105,7 +105,8 @@ namespace UniversityData.Controllers
         }
 
         [HttpGet("search/{searchTerm}")]
-        public async Task<IActionResult> SchoolSearch(string searchTerm) {
+        public async Task<IActionResult> SchoolSearch(string searchTerm) 
+        {
             try 
             {
                 var result = await _basicInfoRepository.SchoolSearchAsync(searchTerm);
