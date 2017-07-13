@@ -35,7 +35,9 @@ namespace UniversityData
             DatabaseConnection connection = new DatabaseConnection();
             // Add framework services.
             services.AddMvc();
+            services.AddCors();
             var connectionString = connection.GetConnectionString();
+
             services.AddDbContext<UniversityContext>(
                 opts => opts.UseNpgsql(connectionString)
             );
