@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Npgsql;
+using UniversityData.BindingModels.BasicInfo;
 using UniversityData.Database;
 using UniversityData.Models;
 using UniversityData.Services.Interfaces;
@@ -58,7 +60,7 @@ namespace UniversityData.Services
 
             string unitId = "";
             string institutionName = "";
-            var institutions = new Dictionary<string, string>();
+            var institutions = new List<SearchBasicInfo>();
 
             NpgsqlCommand cmd = new NpgsqlCommand("SELECT unitid, instnm FROM \"public\".\"basicinfo\" WHERE LOWER(instnm) LIKE LOWER(@school_name) LIMIT 10", connection);
             cmd.Parameters.AddWithValue("@school_name", "%" + searchTerm + "%");
@@ -69,8 +71,13 @@ namespace UniversityData.Services
                 {
                     unitId = reader.GetString(reader.GetOrdinal("unitid"));
                     institutionName = reader.GetString(reader.GetOrdinal("instnm"));
+                    
+                    var institution = new SearchBasicInfo() {
+                        unitid = Convert.ToInt32(unitId),
+                        instnm = institutionName
+                    };
 
-                    institutions.Add(unitId, institutionName);
+                    institutions.Add(institution);
                 }
             }
 
