@@ -79,6 +79,7 @@ namespace UniversityData
                 config.CreateMap<CostToAttend, CostToAttendPublic>();
             });
 
+            app.UseCors("CorsPolicy");
             app.UseMvc();
         }
     }
