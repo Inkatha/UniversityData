@@ -33,9 +33,20 @@ namespace UniversityData
         public void ConfigureServices(IServiceCollection services)
         {
             DatabaseConnection connection = new DatabaseConnection();
+            var connectionString = connection.GetConnectionString();
+            
             // Add framework services.
             services.AddMvc();
-            var connectionString = connection.GetConnectionString();
+
+            services.AddCors(options => 
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials());
+            });
+            
             services.AddDbContext<UniversityContext>(
                 opts => opts.UseNpgsql(connectionString)
             );
@@ -68,6 +79,7 @@ namespace UniversityData
                 config.CreateMap<CostToAttend, CostToAttendPublic>();
             });
 
+            app.UseCors("CorsPolicy");
             app.UseMvc();
         }
     }

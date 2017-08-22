@@ -4,6 +4,9 @@ using UniversityData.Services.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using UniversityData.Constants;
+using System.Collections.Generic;
+using AutoMapper;
+using UniversityData.BindingModels.BasicInfo;
 
 namespace UniversityData.Controllers
 {
@@ -114,7 +117,6 @@ namespace UniversityData.Controllers
                     _logger.LogWarning($"Unable to get search for id: {searchTerm}.");
                     return NotFound();
                 }
-
                 return Ok(result);
             }
             catch (Exception ex) {

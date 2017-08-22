@@ -269,3 +269,6 @@ __pycache__/
 
 # Ignore log files
 /logs
+
+# Ignore OSX file
+.DS_Store
